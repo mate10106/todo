@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRoles {
+  USER
+  ADMIN
+}
+
+
+model User {
+  id String @id @default(cuid()) @map("_id")
+  name String?
+  email String? @unique
+  emailVerified DateTime?
+  image String?
+  password String?
+  role UserRoles @default(USER)
+
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+  accounts Account[]
+  todos createdTodo[]
+}
+
+model Account {
+  id                       String  @id @default(cuid()) @map("_id")
+  userId                   String 
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String?
+  access_token             String? 
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? 
+  session_state            String?
+  refresh_token_expires_in Int?
+  user                     User?   @relation(fields: [userId], references: [id])
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ 
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model VerificationToken {
+  id String @id @default(cuid()) @map("_id")
+  email String
+  token String @unique
+  expired DateTime
+
+  @@unique([email, token])
+}
+
+model passwordResetToken {
+  id String @id @default(cuid()) @map("_id")
+  email String
+  token String @unique
+  expired DateTime
+
+  @@unique([email, token])
+}
+
+model createdTodo {
+  id String @id @default(cuid()) @map("_id")
+  userId String
+  title String
+  deadline DateTime
+  comments String
+  category String?
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
