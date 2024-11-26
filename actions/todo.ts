@@ -1,3 +1,5 @@
+"use server";
+
 import { db } from "@/lib/db";
 import { CreatedTodoSchema } from "@/schema";
 import { z } from "zod";
@@ -30,5 +32,19 @@ export const createTodo = async (
     return { success: "Todo is created!" };
   } catch (error) {
     return { error: "Failed to create todo" };
+  }
+};
+
+export const getTodosByUserId = async (userId: string) => {
+  try {
+    const todos = await db.createdTodo.findMany({
+      where: { userId },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return todos;
+  } catch (error) {
+    console.error("Error fetching todos:", error);
+    return [];
   }
 };

@@ -1,12 +1,15 @@
 import Hero from "@/components/Hero";
-import LatestTodo from "@/components/LatestTodo";
+import CreateTodoForm from "@/components/CreateTodo";
+import { SessionProvider } from "next-auth/react";
 
 const page = () => {
   return (
     <div className="font-[family-name:var(--font-geist-sans)]">
       <main className="max-w-[1100px] mx-auto">
         <Hero />
-        <LatestTodo />
+        <SessionProvider>
+          <CreateTodoForm />
+        </SessionProvider>
       </main>
     </div>
   );

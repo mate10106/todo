@@ -17,9 +17,9 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { FormError } from "../form-error";
-import { createTodo } from "@/actions/todo"; // Importing your createTodo action
+import { createTodo } from "@/actions/todo";
 import { FormSuccess } from "../form-success";
-import { CreatedTodoSchema } from "@/schema"; // Import your schema
+import { CreatedTodoSchema } from "@/schema";
 import { CardWrapper } from "../auth/card-wrapper";
 
 export const CreateComponentForm = ({ userId }: { userId: string }) => {
@@ -31,9 +31,8 @@ export const CreateComponentForm = ({ userId }: { userId: string }) => {
     resolver: zodResolver(CreatedTodoSchema),
     defaultValues: {
       title: "",
-      start: new Date(),
-      end: new Date(),
-      description: "",
+      deadline: new Date(),
+      comments: "",
       category: "",
     },
   });
@@ -83,10 +82,10 @@ export const CreateComponentForm = ({ userId }: { userId: string }) => {
             />
             <FormField
               control={form.control}
-              name="start"
+              name="deadline"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Start Date</FormLabel>
+                  <FormLabel>Deadline</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -106,31 +105,7 @@ export const CreateComponentForm = ({ userId }: { userId: string }) => {
             />
             <FormField
               control={form.control}
-              name="end"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>End Date</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      type="date"
-                      value={
-                        field.value
-                          ? field.value.toISOString().split("T")[0]
-                          : ""
-                      }
-                      onChange={(e) => field.onChange(new Date(e.target.value))}
-                      placeholder="End date"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
+              name="comments"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Description</FormLabel>

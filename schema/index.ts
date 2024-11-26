@@ -49,10 +49,7 @@ export const CreatedTodoSchema = z.object({
     .max(25, {
       message: "Title must be 25 characters or fewer",
     }),
-  deadline: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/)
-    .transform((val) => new Date(val)),
+  deadline: z.date(),
   comments: z
     .string()
     .min(1, { message: "Description is required" })
