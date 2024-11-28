@@ -21,6 +21,7 @@ import { createTodo } from "@/actions/todo";
 import { FormSuccess } from "../form-success";
 import { CreatedTodoSchema } from "@/schema";
 import { CardWrapper } from "../auth/card-wrapper";
+import { ComboboxDemo } from "../Combobox";
 
 export const CreateComponentForm = ({ userId }: { userId: string }) => {
   const [error, setError] = useState<string | undefined>("");
@@ -134,6 +135,22 @@ export const CreateComponentForm = ({ userId }: { userId: string }) => {
                     />
                   </FormControl>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="priority"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Priority</FormLabel>
+                  <FormControl>
+                    <ComboboxDemo
+                      value={field.value}
+                      disabled={isPending}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
                 </FormItem>
               )}
             />

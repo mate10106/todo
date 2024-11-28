@@ -14,7 +14,8 @@ export const createTodo = async (
     return { error: "Invalid fields!" };
   }
 
-  const { title, deadline, comments, category } = validatedFields.data;
+  const { title, deadline, comments, category, priority } =
+    validatedFields.data;
 
   try {
     await db.createdTodo.create({
@@ -23,6 +24,7 @@ export const createTodo = async (
         deadline,
         comments,
         category,
+        priority,
         user: {
           connect: { id: userId },
         },

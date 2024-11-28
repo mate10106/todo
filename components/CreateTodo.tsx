@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { CreateComponentForm } from "./CRUD/create-components";
 import { useSession } from "next-auth/react";
 import { getTodosByUserId } from "@/actions/todo";
+import clsx from "clsx";
 
 const CreateTodoForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,6 +36,14 @@ const CreateTodoForm = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const getPriorityColor = (priority: string) => {
+    return clsx({
+      "bg-red-700": priority === "high",
+      "bg-yellow-500": priority === "medium",
+      "bg-green-600": priority === "low",
+    });
   };
 
   return (
@@ -81,7 +90,12 @@ const CreateTodoForm = () => {
                         alt="pen"
                       ></Image>
                     </Button>
-                    <div className="bg-red-800 h-8 w-8 mr-4 rounded-lg" />
+                    <div
+                      className={clsx(
+                        "-8 w-8 mr-4 rounded-lg",
+                        getPriorityColor(todo.priority)
+                      )}
+                    />
                   </div>
                 </li>
               ))

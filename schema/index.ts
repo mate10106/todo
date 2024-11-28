@@ -58,4 +58,5 @@ export const CreatedTodoSchema = z.object({
     .string()
     .max(20, { message: "Category must be 20 characters or fewer" })
     .optional(),
+  priority: z.string(),
 });
