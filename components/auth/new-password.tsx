@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+
 import {
   Form,
   FormControl,
@@ -9,21 +10,27 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+
 import { CardWrapper } from "./card-wrapper";
 import { z } from "zod";
 import { NewPasswordSchema } from "@/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { startTransition, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { newPassword } from "@/actions/new-password";
 import { Input } from "../ui/input";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { Button } from "../ui/button";
+import { useSearchParams } from "next/navigation";
+import { tokenProps } from "@/types";
 
 const NewPasswordForm = () => {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
+
   const [success, setSuccess] = useState<string | undefined>();
   const [error, setError] = useState<string | undefined>();
-  const [isPanding, setIsPanding] = useTransition();
+  const [isPanding, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof NewPasswordSchema>>({
     resolver: zodResolver(NewPasswordSchema),
@@ -36,12 +43,14 @@ const NewPasswordForm = () => {
     setError("");
     setSuccess("");
 
-    startTransition(() => {
-      newPassword(values, token).then((data) => {
-        setError(data?.error);
-        setSuccess(data?.success);
+    if (token) {
+      startTransition(() => {
+        newPassword(values, token).then((data) => {
+          setError(data?.error || "");
+          setSuccess(data?.success || "");
+        });
       });
-    });
+    }
   };
 
   return (
@@ -66,6 +75,7 @@ const NewPasswordForm = () => {
                       disabled={isPanding}
                       type="password"
                       placeholder="********"
+                      className="text-white"
                     />
                   </FormControl>
                   <FormMessage {...field} />

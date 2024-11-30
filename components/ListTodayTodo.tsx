@@ -3,18 +3,13 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { CreateComponentForm } from "./CRUD/create-components";
 import { useSession } from "next-auth/react";
 import { getTodosByUserId } from "@/actions/todo";
 import clsx from "clsx";
 
-const CreateTodoForm = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const ListTodayTodo = () => {
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
 
   const { data: session } = useSession();
 
@@ -48,12 +43,6 @@ const CreateTodoForm = () => {
 
   return (
     <section className="flex flex-col gap-6 mt-20 max-lg:mt-12 m-12">
-      <div className="flex justify-between">
-        <h1 className="text-2xl font-bold">Tasks</h1>
-        <Button variant="secondary" onClick={handleOpenModal}>
-          + Add tasks
-        </Button>
-      </div>
       <div className="min-h-screen border rounded-lg">
         <div className="min-h-screen border m-7 rounded-lg">
           <ul>
@@ -107,28 +96,8 @@ const CreateTodoForm = () => {
           </ul>
         </div>
       </div>
-
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-black">
-            <div className="absolute float-end p-2">
-              <button
-                className="hover:text-blue-700 transition-colors duration-300"
-                onClick={handleCloseModal}
-              >
-                ✖
-              </button>
-            </div>
-            {userId ? (
-              <CreateComponentForm userId={userId} />
-            ) : (
-              <p>Loading user data...</p>
-            )}
-          </div>
-        </div>
-      )}
     </section>
   );
 };
 
-export default CreateTodoForm;
+export default ListTodayTodo;

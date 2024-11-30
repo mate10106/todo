@@ -1,5 +1,5 @@
 import Hero from "@/components/Hero";
-import CreateTodoForm from "@/components/CreateTodo";
+import ListTodayTodo from "@/components/ListTodayTodo";
 import { SessionProvider } from "next-auth/react";
 
 const page = () => {
@@ -8,7 +8,7 @@ const page = () => {
       <main className="max-w-[1100px] mx-auto">
         <Hero />
         <SessionProvider>
-          <CreateTodoForm />
+          <ListTodayTodo />
         </SessionProvider>
       </main>
     </div>

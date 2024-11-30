@@ -23,7 +23,7 @@ import { CreatedTodoSchema } from "@/schema";
 import { CardWrapper } from "../auth/card-wrapper";
 import { ComboboxDemo } from "../Combobox";
 
-export const CreateComponentForm = ({ userId }: { userId: string }) => {
+export const CreateTodoForm = ({ userId }: { userId: string }) => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();

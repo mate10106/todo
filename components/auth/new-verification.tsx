@@ -44,7 +44,7 @@ export const NewVerificationForm = () => {
       backButtonLabel="Back to login"
       backButtonHref="/auth/login"
     >
-      <div className="">
+      <div className="text-white">
         {!success && !error && <BeatLoader color="#256" />}
         <FormSuccess message={success} />
         <FormError message={error} />
