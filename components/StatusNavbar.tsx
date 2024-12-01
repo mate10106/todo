@@ -15,8 +15,8 @@ const StatusNavbar = () => {
   const userId = session?.user?.id;
 
   return (
-    <section>
-      <div className="flex justify-between">
+    <section className="mt-20">
+      <div className="flex justify-between max-w-[1000px] mx-auto">
         <h1 className="text-2xl font-bold">Tasks</h1>
         <Button variant="secondary" onClick={handleOpenModal}>
           + Add tasks
