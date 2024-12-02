@@ -1,15 +1,15 @@
 "use client";
 
-import Image from "next/image";
+import { getTodosByUserId } from "@/actions/todo";
+import { Todo } from "@/types";
+import { TodoStatus } from "@prisma/client";
+import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { useSession } from "next-auth/react";
-import { getTodosByUserId, updateTodoStatus } from "@/actions/todo";
+import Image from "next/image";
 import clsx from "clsx";
-import { TodoStatus } from "@prisma/client";
-import { Todo } from "@/types";
 
-const ListTodayTodo = () => {
+const ListCompletedTodoForm = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -23,7 +23,7 @@ const ListTodayTodo = () => {
     }
   }, [userId]);
 
-  const fetchTodos = async (userId: string, status: string = "IN_PROGRESS") => {
+  const fetchTodos = async (userId: string, status: string = "COMPLETED") => {
     setIsLoading(true);
     try {
       const data = await getTodosByUserId(userId, status as TodoStatus);
@@ -43,25 +43,19 @@ const ListTodayTodo = () => {
     });
   };
 
-  const handleCheckboxChange = async (id: string) => {
-    await updateTodoStatus(id, "COMPLETED");
-  };
-
   return (
     <ul>
-      {todos.map((todo, index) => (
+      {todos.map((completedTodo, index) => (
         <li
           key={index}
-          className="flex items-center justify-between border border-[#7c3aed] m-1 rounded-lg h-20 cursor-pointer"
+          className="flex items-center justify-between border border-[#7c3aed] m-1 rounded-lg h-20 brightness-50"
         >
           <div className="flex items-center gap-6">
             <input
               type="checkbox"
               className="ml-4 rounded-lg size-4 cursor-pointer"
-              checked={todo.completed}
-              onChange={() => handleCheckboxChange(todo.id)}
             />
-            <span className="text-lg">{todo.title}</span>
+            <span className="text-lg">{completedTodo.title}</span>
           </div>
           <div className="flex items-center gap-2">
             <Image
@@ -70,10 +64,12 @@ const ListTodayTodo = () => {
               width={20}
               alt="clock"
             />
-            <span className="">{new Date(todo.deadline).toDateString()}</span>
+            <span className="">
+              {new Date(completedTodo.deadline).toDateString()}
+            </span>
           </div>
           <div className="flex gap-8">
-            <Button>
+            <Button disabled>
               <Image
                 src="/pen-svgrepo-com.svg"
                 height={20}
@@ -84,7 +80,7 @@ const ListTodayTodo = () => {
             <div
               className={clsx(
                 "-8 w-8 mr-4 rounded-lg",
-                getPriorityColor(todo.priority)
+                getPriorityColor(completedTodo.priority)
               )}
             />
           </div>
@@ -94,4 +90,4 @@ const ListTodayTodo = () => {
   );
 };
 
-export default ListTodayTodo;
+export default ListCompletedTodoForm;

@@ -1,8 +1,7 @@
 import ListTodayTodo from "@/components/ListTodayTodo";
-import React from "react";
 
-const page = () => {
+const TodayPage = () => {
   return <ListTodayTodo />;
 };
 
-export default page;
+export default TodayPage;

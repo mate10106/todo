@@ -13,7 +13,7 @@ const Navbar = () => {
       <div className="hidden lg:flex gap-2 items-center">
         <ul>
           <Link
-            href="/dashboard/status"
+            href="/dashboard/status/today"
             className="text-neutral-600 hover:text-white transition-colors border border-neutral-700 hover:border-neutral-50 p-2 rounded-lg duration-500"
           >
             Home

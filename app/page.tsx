@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col justify-center min-h-screen items-center border border-[#7c3aed] rounded-xl">
-      <div className="relative rounded-full spin-border w-max">
-        <div className="z-50">
+    <div className="flex flex-col justify-center min-h-screen border border-[#7c3aed] rounded-xl overflow-x-hidden">
+      <div className="flex items-center gap-36">
+        <div className="flex flex-col w-1/2 max-[1600px]:w-full">
           <h1 className="text-4xl font-bold font-serif text-center p-8">
             Welcome!
           </h1>
@@ -27,6 +27,9 @@ export default function Home() {
               Register
             </Link>
           </div>
+        </div>
+        <div className="max-[1600px]:hidden absolute right-[-10%] border border-[#7c3aed] rounded-lg">
+          <Image src="/main.png" width={1200} height={900} alt="main" />
         </div>
       </div>
     </div>

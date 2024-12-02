@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/db";
 import { CreatedTodoSchema } from "@/schema";
+import { TodoStatus } from "@prisma/client";
 import { z } from "zod";
 
 export const createTodo = async (
@@ -37,10 +38,13 @@ export const createTodo = async (
   }
 };
 
-export const getTodosByUserId = async (userId: string) => {
+export const getTodosByUserId = async (userId: string, status?: TodoStatus) => {
   try {
     const todos = await db.createdTodo.findMany({
-      where: { userId },
+      where: { 
+        userId,
+        ...(status ? { status } : {}),
+      },
       orderBy: { createdAt: "desc" },
     });
 
@@ -48,5 +52,17 @@ export const getTodosByUserId = async (userId: string) => {
   } catch (error) {
     console.error("Error fetching todos:", error);
     return [];
+  }
+};
+
+export const updateTodoStatus = async (id: string, status: TodoStatus) => {
+  try {
+    const updatedTodo = await db.createdTodo.update({ 
+      where: { id }, 
+      data: { status } 
+    });
+    return updatedTodo;
+  } catch (error) {
+    return { error: "Failed to update todo status" };
   }
 };

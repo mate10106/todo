@@ -55,3 +55,17 @@ declare module "@auth/core/jwt" {
     role: "ADMIN" | "USER";
   }
 }
+
+interface Todo {
+  id: string;
+  userId: string;
+  title: string;
+  deadline: Date;
+  comments: string;
+  category: string | null;
+  priority: string;
+  completed: boolean;
+  status: TodoStatus;
+  createdAt: Date;
+  updatedAt: Date;
+}

@@ -69,6 +69,13 @@ model passwordResetToken {
   @@unique([email, token])
 }
 
+enum TodoStatus {
+  PENDING
+  IN_PROGRESS
+  OVERDUE
+  COMPLETED
+}
+
 model createdTodo {
   id String @id @default(cuid()) @map("_id")
   userId String
@@ -77,6 +84,8 @@ model createdTodo {
   comments String
   category String?
   priority String
+  completed Boolean @default(false)
+  status TodoStatus @default(IN_PROGRESS)
   user User @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())

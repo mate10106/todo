@@ -22,7 +22,6 @@ import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { Button } from "../ui/button";
 import { useSearchParams } from "next/navigation";
-import { tokenProps } from "@/types";
 
 const NewPasswordForm = () => {
   const searchParams = useSearchParams();

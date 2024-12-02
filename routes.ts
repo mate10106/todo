@@ -10,4 +10,4 @@ export const authRoutes = [
 
 export const apiAithPrefix = "/api/auth";
 
-export const DEFAULT_LOGIN_REDIRECT = "/dashboard/status";
+export const DEFAULT_LOGIN_REDIRECT = "/dashboard/status/today";
