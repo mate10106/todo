@@ -1,40 +1,11 @@
-"use client";
-
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { Button } from "./ui/button";
-import { useSession } from "next-auth/react";
-import { getTodosByUserId, updateTodoStatus } from "@/actions/todo";
 import clsx from "clsx";
-import { TodoStatus } from "@prisma/client";
+
+import { Button } from "./ui/button";
 import { Todo } from "@/types";
+import { updateTodoStatus } from "@/actions/todo";
 
-const ListTodayTodo = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const { data: session } = useSession();
-
-  const userId = session?.user?.id;
-
-  useEffect(() => {
-    if (userId) {
-      fetchTodos(userId);
-    }
-  }, [userId]);
-
-  const fetchTodos = async (userId: string, status: string = "IN_PROGRESS") => {
-    setIsLoading(true);
-    try {
-      const data = await getTodosByUserId(userId, status as TodoStatus);
-      setTodos(data);
-    } catch (error) {
-      console.error("Error fetching todos:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
+const ListTasks = ({ todos }: { todos: Todo[] }) => {
   const getPriorityColor = (priority: string) => {
     return clsx({
       "bg-red-700": priority === "high",
@@ -94,4 +65,4 @@ const ListTodayTodo = () => {
   );
 };
 
-export default ListTodayTodo;
+export default ListTasks;
