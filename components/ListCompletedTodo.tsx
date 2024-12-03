@@ -54,6 +54,7 @@ const ListCompletedTodoForm = () => {
             <input
               type="checkbox"
               className="ml-4 rounded-lg size-4 cursor-pointer"
+              defaultChecked={completedTodo.status === "COMPLETED"}
             />
             <span className="text-lg">{completedTodo.title}</span>
           </div>

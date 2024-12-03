@@ -1,19 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const StatusNavbar = () => {
-  const searchParams = useSearchParams();
-  const status = searchParams.get("status");
+  const pathname = usePathname();
 
-  console.log(status);
+  const currentStatus = pathname.split("/").pop();
 
   const getLinkStyle = (linkStatus: string) => {
     const baseStyle = "flex justify-center items-center w-32 border h-10";
-    return status === linkStatus
-      ? `${baseStyle} bg-blue-500 text-white`
+    return currentStatus === linkStatus.toLowerCase()
+      ? `${baseStyle} bg-blue-800 font-semibold`
       : baseStyle;
   };
 

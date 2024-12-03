@@ -49,7 +49,9 @@ export const CreatedTodoSchema = z.object({
     .max(25, {
       message: "Title must be 25 characters or fewer",
     }),
-  deadline: z.date(),
+  deadline: z.date().refine((date) => date >= new Date(), {
+    message: "Deadline must be greater than today's date",
+  }),
   comments: z
     .string()
     .min(1, { message: "Description is required" })
