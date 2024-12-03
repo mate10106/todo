@@ -19,8 +19,8 @@ declare type LoginButtonProps = {
 declare type CardWrapperProps = {
   children: React.ReactNode;
   headerLabel: string;
-  backButtonLabel: string;
-  backButtonHref: string;
+  backButtonLabel?: string;
+  backButtonHref?: string;
   showSocial?: boolean;
 };
 

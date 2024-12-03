@@ -56,11 +56,7 @@ export const CreateTodoForm = ({ userId }: { userId: string }) => {
   };
 
   return (
-    <CardWrapper
-      headerLabel="Create a new Todo"
-      backButtonLabel="Back to Dashboard"
-      backButtonHref="/dashboard"
-    >
+    <CardWrapper headerLabel="Create a new Todo">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4 text-white">
