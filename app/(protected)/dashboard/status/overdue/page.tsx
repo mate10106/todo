@@ -45,7 +45,7 @@ const OverduePage = () => {
             </div>
           ) : (
             <>
-              <div>
+              <div className="opacity-50 brightness-50 hover:opacity-100 hover:brightness-100 transition-all duration-300">
                 <ListTasks todos={todos} />
               </div>
               <div>

@@ -3,12 +3,11 @@
 import ListCompletedTodoForm from "@/components/ListCompletedTodo";
 import ListTasks from "@/components/ListTasks";
 
-import { getTodosByUserId, updateTodoStatus } from "@/actions/todo";
+import { getTodosByUserId } from "@/actions/todo";
 import { Todo } from "@/types";
 import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { TodoStatus } from "@prisma/client";
 
 const TodayPage = () => {
   const [todos, setTodos] = useState<Todo[]>([]);

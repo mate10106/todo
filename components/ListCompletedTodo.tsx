@@ -44,7 +44,7 @@ const ListCompletedTodoForm = () => {
   };
 
   return (
-    <ul>
+    <ul className="pointer-events-none">
       {todos.map((completedTodo, index) => (
         <li
           key={index}

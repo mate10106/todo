@@ -28,7 +28,7 @@ const ListTasks = ({ todos }: { todos: Todo[] }) => {
           <div className="flex items-center gap-6">
             <input
               type="checkbox"
-              className="ml-4 rounded-lg size-4 cursor-pointer"
+              className="ml-4 rounded-lg size-4 cursor-pointer scale-95 hover:scale-110 transition-all duration-300"
               checked={todo.completed}
               onChange={() => handleCheckboxChange(todo.id)}
             />
