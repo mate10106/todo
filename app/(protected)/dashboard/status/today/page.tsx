@@ -1,13 +1,14 @@
 "use client";
 
 import ListCompletedTodoForm from "@/components/ListCompletedTodo";
-import ListTodayTodo from "@/components/ListTasks";
+import ListTasks from "@/components/ListTasks";
 
-import { getTodosByUserId } from "@/actions/todo";
+import { getTodosByUserId, updateTodoStatus } from "@/actions/todo";
 import { Todo } from "@/types";
 import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { TodoStatus } from "@prisma/client";
 
 const TodayPage = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -46,7 +47,7 @@ const TodayPage = () => {
           ) : (
             <>
               <div>
-                <ListTodayTodo todos={todos} />
+                <ListTasks todos={todos} />
               </div>
               <div>
                 <ListCompletedTodoForm />

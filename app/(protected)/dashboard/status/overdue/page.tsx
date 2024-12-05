@@ -9,7 +9,7 @@ import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-const TodayPage = () => {
+const OverduePage = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -59,4 +59,4 @@ const TodayPage = () => {
   );
 };
 
-export default TodayPage;
+export default OverduePage;

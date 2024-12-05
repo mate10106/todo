@@ -77,19 +77,19 @@ enum TodoStatus {
 }
 
 model createdTodo {
-  id String @id @default(cuid()) @map("_id")
-  userId String
-  title String
-  deadline DateTime
-  comments String
-  category String?
-  priority String
-  completed Boolean @default(false)
-  status TodoStatus @default(IN_PROGRESS)
-  user User @relation(fields: [userId], references: [id])
+  id        String      @id @default(cuid()) @map("_id")
+  userId    String
+  title     String
+  deadline  DateTime
+  comments  String
+  category  String?
+  priority  String
+  completed Boolean     @default(false)
+  status    TodoStatus  @default(IN_PROGRESS)
+  user      User        @relation(fields: [userId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 
   @@index([userId])
 }
