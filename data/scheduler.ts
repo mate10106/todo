@@ -26,3 +26,26 @@ export const updateOverdueTodos = async () => {
 
   cron.schedule("0 0 * * *", updateTodos);
 };
+
+export const deleteOldTodos = async () => {
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+  try {
+    const deletedTodo = await db.createdTodo.deleteMany({
+      where: {
+        completed: true,
+        updatedAt: { lte: oneWeekAgo },
+      },
+    });
+
+    console.log(`${deletedTodo.count} old todos deleted successfully.`);
+  } catch (error) {
+    console.error("Error deleting old todos: ", error);
+  }
+
+  cron.schedule("0 0 * * *", async () => {
+    console.log("Running cleanup job...");
+    await deleteOldTodos();
+  });
+};
