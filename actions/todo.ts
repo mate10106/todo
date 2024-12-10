@@ -19,6 +19,10 @@ export const createTodo = async (
     validatedFields.data;
 
   try {
+    const currentDate = new Date();
+    const initialStatus =
+      new Date(deadline) > currentDate ? "PENDING" : "IN_PROGRESS";
+
     await db.createdTodo.create({
       data: {
         title,
@@ -26,6 +30,7 @@ export const createTodo = async (
         comments,
         category,
         priority,
+        status: initialStatus,
         user: {
           connect: { id: userId },
         },
@@ -41,7 +46,7 @@ export const createTodo = async (
 export const getTodosByUserId = async (userId: string, status?: TodoStatus) => {
   try {
     const todos = await db.createdTodo.findMany({
-      where: { 
+      where: {
         userId,
         ...(status ? { status } : {}),
       },
@@ -55,11 +60,15 @@ export const getTodosByUserId = async (userId: string, status?: TodoStatus) => {
   }
 };
 
-export const updateTodoStatus = async (id: string, status: TodoStatus) => {
+export const updateTodoStatus = async (
+  id: string,
+  status: TodoStatus,
+  completed: boolean
+) => {
   try {
-    const updatedTodo = await db.createdTodo.update({ 
-      where: { id }, 
-      data: { status } 
+    const updatedTodo = await db.createdTodo.update({
+      where: { id },
+      data: { status, completed },
     });
     return updatedTodo;
   } catch (error) {

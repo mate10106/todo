@@ -27,7 +27,7 @@ const ListCompletedTodoForm = () => {
     setIsLoading(true);
     try {
       const data = await getTodosByUserId(userId, status as TodoStatus);
-      setTodos(data);
+      setTodos(data.slice(0, 4));
     } catch (error) {
       console.error("Error fetching todos:", error);
     } finally {

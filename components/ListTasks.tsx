@@ -14,8 +14,8 @@ const ListTasks = ({ todos }: { todos: Todo[] }) => {
     });
   };
 
-  const handleCheckboxChange = async (id: string) => {
-    await updateTodoStatus(id, "COMPLETED");
+  const handleCheckboxChange = async (id: string, completed: boolean) => {
+    await updateTodoStatus(id, "COMPLETED", true);
   };
 
   return (
@@ -30,7 +30,7 @@ const ListTasks = ({ todos }: { todos: Todo[] }) => {
               type="checkbox"
               className="ml-4 rounded-lg size-4 cursor-pointer scale-95 hover:scale-110 transition-all duration-300"
               checked={todo.completed}
-              onChange={() => handleCheckboxChange(todo.id)}
+              onChange={() => handleCheckboxChange(todo.id, todo.completed)}
             />
             <span className="text-lg">{todo.title}</span>
           </div>
