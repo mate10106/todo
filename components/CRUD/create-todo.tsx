@@ -22,8 +22,17 @@ import { FormSuccess } from "../form-success";
 import { CreatedTodoSchema } from "@/schema";
 import { CardWrapper } from "../auth/card-wrapper";
 import { ComboboxDemo } from "../Combobox";
+import { Todo } from "@/types";
 
-export const CreateTodoForm = ({ userId }: { userId: string }) => {
+export const CreateTodoForm = ({
+  userId,
+  closeModal,
+  onAddTodo,
+}: {
+  userId: string;
+  closeModal: () => void;
+  onAddTodo: (newTodo: Todo) => void;
+}) => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -49,17 +58,31 @@ export const CreateTodoForm = ({ userId }: { userId: string }) => {
             setError(data.error);
           } else {
             setSuccess(data.success);
+            onAddTodo(data);
+            setTimeout(() => closeModal(), 3000);
           }
         })
         .catch((err) => setError("An unexpected error occurred."));
     });
   };
 
+  const priorityData = [
+    { value: "high", label: "High" },
+    { value: "medium", label: "Medium" },
+    { value: "low", label: "Low" },
+  ];
+
+  const categoryData = [
+    { value: "work", label: "Work" },
+    { value: "personal", label: "Personal" },
+    { value: "other", label: "Other" },
+  ];
+
   return (
-    <CardWrapper headerLabel="Create a new Todo">
+    <CardWrapper headerLabel="Create a new Todo" titleLabel="New task">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="space-y-4 text-white">
+          <div className="space-y-4">
             <FormField
               control={form.control}
               name="title"
@@ -71,6 +94,7 @@ export const CreateTodoForm = ({ userId }: { userId: string }) => {
                       {...field}
                       disabled={isPending}
                       placeholder="Enter todo title"
+                      className="h-11 rounded-xl"
                     />
                   </FormControl>
                   <FormMessage />
@@ -94,23 +118,7 @@ export const CreateTodoForm = ({ userId }: { userId: string }) => {
                           : ""
                       }
                       onChange={(e) => field.onChange(new Date(e.target.value))}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="comments"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="Enter description"
+                      className="block w-full rounded-lg border border-gray-300 pl-2 pr-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                   </FormControl>
                   <FormMessage />
@@ -124,10 +132,12 @@ export const CreateTodoForm = ({ userId }: { userId: string }) => {
                 <FormItem>
                   <FormLabel>Category (Optional)</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
+                    <ComboboxDemo
+                      value={field.value}
                       disabled={isPending}
-                      placeholder="Enter category"
+                      onChange={field.onChange}
+                      data={categoryData}
+                      title="Select category"
                     />
                   </FormControl>
                   <FormMessage />
@@ -145,8 +155,29 @@ export const CreateTodoForm = ({ userId }: { userId: string }) => {
                       value={field.value}
                       disabled={isPending}
                       onChange={field.onChange}
+                      data={priorityData}
+                      title="Select priority"
                     />
                   </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="comments"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <textarea
+                      {...field}
+                      disabled={isPending}
+                      placeholder="Enter description"
+                      rows={3}
+                      className="block w-full rounded-lg border border-gray-300 pl-2 pr-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    />
+                  </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -154,13 +185,15 @@ export const CreateTodoForm = ({ userId }: { userId: string }) => {
 
           <FormError message={error} />
           <FormSuccess message={success} />
-          <Button
-            className="w-full bg-[#d66b2b] hover:bg-[#191635] duration-300 text-lg"
-            type="submit"
-            disabled={isPending}
-          >
-            Create Todo
-          </Button>
+          <div className="flex w-full gap-2 justify-end">
+            <Button
+              className="bg-blue-600/80 hover:bg-blue-600 transition-colors"
+              type="submit"
+              disabled={isPending}
+            >
+              Create Task
+            </Button>
+          </div>
         </form>
       </Form>
     </CardWrapper>

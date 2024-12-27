@@ -24,6 +24,7 @@ import { FormSuccess } from "../form-success";
 import { login } from "@/actions/login";
 import Link from "next/link";
 import { LoginSchema } from "@/schema";
+import { LogIn } from "lucide-react";
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -60,27 +61,28 @@ export const LoginForm = () => {
 
   return (
     <CardWrapper
-      headerLabel="Log into your account"
+      titleLabel="Welcome back"
+      headerLabel="Enter your credentials to access your account"
       backButtonLabel="Don't have an account?"
       backButtonHref="/auth/register"
       showSocial
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="space-y-4 text-white">
+          <div className="space-y-4">
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Email address</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPanding}
                       id="email"
                       type="email"
-                      placeholder="john.doe@example.com"
+                      placeholder="you@example.com"
                     />
                   </FormControl>
                   <FormMessage {...field} />
@@ -102,17 +104,15 @@ export const LoginForm = () => {
                       placeholder="********"
                     />
                   </FormControl>
+                  <FormMessage {...field} />
                   <Button
                     variant="link"
                     size="sm"
                     asChild
-                    className="px-0 font-normal"
+                    className="px-0 text-base"
                   >
-                    <Link href="/auth/reset" className="text-white">
-                      Forgot password?
-                    </Link>
+                    <Link href="/auth/reset">Forgot password?</Link>
                   </Button>
-                  <FormMessage {...field} />
                 </FormItem>
               )}
             />
@@ -120,11 +120,13 @@ export const LoginForm = () => {
           <FormError message={error || urlError} />
           <FormSuccess message={succes} />
           <Button
-            className="w-full bg-[#d66b2b] hover:bg-[#191635] duration-500 text-lg"
+            className="w-full bg-blue-600/85 font-bold hover:bg-blue-600"
+            variant="default"
             type="submit"
             disabled={isPanding}
           >
-            Login
+            <LogIn size={11} />
+            Sign in
           </Button>
         </form>
       </Form>

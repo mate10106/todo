@@ -4,11 +4,12 @@ import cron from "node-cron";
 export const updateOverdueTodos = async () => {
   const updateTodos = async () => {
     try {
-      const currentTime = new Date();
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
 
       const result = await db.createdTodo.updateMany({
         where: {
-          deadline: { lt: currentTime },
+          deadline: { lt: currentDate },
           status: "IN_PROGRESS",
         },
         data: {

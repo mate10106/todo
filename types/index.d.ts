@@ -19,6 +19,7 @@ declare type LoginButtonProps = {
 declare type CardWrapperProps = {
   children: React.ReactNode;
   headerLabel: string;
+  titleLabel: string;
   backButtonLabel?: string;
   backButtonHref?: string;
   showSocial?: boolean;
@@ -26,6 +27,7 @@ declare type CardWrapperProps = {
 
 declare type HeaderProps = {
   label: string;
+  title: string;
 };
 
 declare type BackButtonProps = {
@@ -68,4 +70,24 @@ interface Todo {
   status: TodoStatus;
   createdAt: Date;
   updatedAt: Date;
+}
+
+interface NavLinkProps {
+  icon: React.ReactNode;
+  text: string;
+  active?: boolean;
+  href: string;
+}
+
+interface ProfileFieldProps {
+  icon: React.ReactNode;
+  label: string;
+  value?: string;
+}
+
+interface todoStatsProps {
+  totalTasks: number;
+  completed: number;
+  inProgress: number;
+  overdue: number;
 }

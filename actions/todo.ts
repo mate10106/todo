@@ -75,3 +75,41 @@ export const updateTodoStatus = async (
     return { error: "Failed to update todo status" };
   }
 };
+
+export const deleteTodo = async (id: string) => {
+  try {
+    const deleteTask = await db.createdTodo.delete({
+      where: { id },
+    });
+
+    return deleteTask;
+  } catch (error) {
+    return { error: "Failed to delete todo" };
+  }
+};
+
+export const getTodoStats = async (userId: string) => {
+  try {
+    const stats = await db.createdTodo.groupBy({
+      by: ["status"],
+      where: { userId },
+      _count: true,
+    });
+
+    const totalTasks = stats.reduce((acc, curr) => acc + curr._count, 0);
+    const completed = stats.find((s) => s.status === "COMPLETED")?._count ?? 0;
+    const inProgress =
+      stats.find((s) => s.status === "IN_PROGRESS")?._count ?? 0;
+    const overdue = stats.find((s) => s.status === "OVERDUE")?._count ?? 0;
+
+    return {
+      totalTasks,
+      completed,
+      inProgress,
+      overdue,
+    };
+  } catch (error) {
+    console.error("Error fetching todo status:", error);
+    return {};
+  }
+};

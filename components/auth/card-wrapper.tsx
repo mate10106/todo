@@ -8,14 +8,15 @@ import { CardWrapperProps } from "@/types";
 export const CardWrapper = ({
   children,
   headerLabel,
+  titleLabel,
   backButtonLabel,
   backButtonHref,
   showSocial,
 }: CardWrapperProps) => {
   return (
-    <Card className="w-[400px] shadow-md bg-transparent">
+    <Card className="w-[500px] bg-transparent">
       <CardHeader>
-        <Header label={headerLabel} />
+        <Header label={headerLabel} title={titleLabel} />
       </CardHeader>
       <CardContent>{children}</CardContent>
       {showSocial && (

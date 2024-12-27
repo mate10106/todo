@@ -19,58 +19,47 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const priority = [
-  {
-    value: "high",
-    label: "High",
-  },
-  {
-    value: "medium",
-    label: "Medium",
-  },
-  {
-    value: "low",
-    label: "Low",
-  },
-];
-
 export function ComboboxDemo({
   value,
   onChange,
   disabled,
+  data,
+  title,
 }: {
   value: string;
   onChange: (value: string) => void;
   disabled?: boolean;
+  data: { value: string; label: string }[];
+  title: string;
 }) {
   const [open, setOpen] = React.useState(false);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger
+        asChild
+        className="focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+      >
         <Button
           variant="default"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between"
+          className="w-full justify-between bg-white text-black hover:bg-white "
           disabled={disabled}
         >
-          {value
-            ? priority.find((priority) => priority.value === value)?.label
-            : "Select priority..."}
+          {value ? data.find((data) => data.value === value)?.label : title}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
-        <Command className="">
-          <CommandInput placeholder="Search priority..." disabled={disabled} />
+        <Command className="w-[45vh] cursor-pointer">
           <CommandList>
-            <CommandEmpty>No priority found.</CommandEmpty>
             <CommandGroup>
-              {priority.map((priority) => (
+              {data.map((data) => (
                 <CommandItem
-                  key={priority.value}
-                  value={priority.value}
+                  key={data.value}
+                  value={data.value}
+                  className="cursor-pointer"
                   onSelect={(currentValue) => {
                     if (!disabled) {
                       onChange(currentValue === value ? "" : currentValue);
@@ -78,11 +67,11 @@ export function ComboboxDemo({
                     }
                   }}
                 >
-                  {priority.label}
+                  {data.label}
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === priority.value ? "opacity-100" : "opacity-0"
+                      value === data.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>

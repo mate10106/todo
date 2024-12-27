@@ -22,6 +22,8 @@ import { FormError } from "../form-error";
 import { register } from "@/actions/register";
 import { FormSuccess } from "../form-success";
 import { RegisterSchema } from "@/schema";
+import { UserPlus } from "lucide-react";
+import Link from "next/link";
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
@@ -51,14 +53,16 @@ export const RegisterForm = () => {
 
   return (
     <CardWrapper
-      headerLabel="Create an account"
+      titleLabel="Create an account"
+      headerLabel="Start managing your tasks today"
       backButtonLabel="Already have an account?"
       backButtonHref="/auth/login"
       showSocial
+      className="w-[500px]"
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="space-y-4 text-white">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <div className=" text-white">
             <FormField
               control={form.control}
               name="name"
@@ -115,12 +119,36 @@ export const RegisterForm = () => {
           </div>
           <FormError message={error} />
           <FormSuccess message={succes} />
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              required
+              className=" h-4 w-4 text-blue-500 focus:ring-blue-500 border-gray-300 rounded"
+            />
+            <label>
+              I agree to the{" "}
+              <Link
+                href="/contract/termsOfService"
+                className="text-blue-600 font-bold"
+              >
+                Terms of Service {""}
+              </Link>
+              and {""}
+              <Link
+                href="/contract/privacyPolicy"
+                className="text-blue-600 font-bold"
+              >
+                Privacy Policy
+              </Link>
+            </label>
+          </div>
           <Button
-            className="w-full bg-[#d66b2b] hover:bg-[#191635] duration-300 text-lg"
+            className="w-full bg-blue-600/85 font-bold hover:bg-blue-600"
             type="submit"
             disabled={isPanding}
           >
-            Create an account
+            <UserPlus size={11} />
+            Create account
           </Button>
         </form>
       </Form>
