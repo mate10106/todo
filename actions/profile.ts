@@ -1,5 +1,15 @@
 import { db } from "@/lib/db";
 
-export const deleteProfile = async () => {};
+export const deleteUser = async (id: string) => {
+  try {
+    const deleteUser = await db.user.delete({
+      where: { id },
+    });
 
-export const updateProfile = async () => {};
+    return deleteUser;
+  } catch (error) {
+    return { error: "Failed to delete user." };
+  }
+};
+
+export const updateUser = async () => {};

@@ -34,13 +34,13 @@ const Navbar = () => {
               />
             </div>
           </div>
-          <div className="flex gap-8">
+          <div className="flex items-center gap-4">
             <Image
               src={userProfileImage}
               width={26}
               height={26}
               alt="profileImage"
-              className="rounded-full"
+              className="rounded-full size-8"
             />
             <button
               onClick={() => signOut({ callbackUrl: "/" })}

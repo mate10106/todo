@@ -2,11 +2,13 @@
 
 import { getTodoStats } from "@/actions/todo";
 import { ProfileFieldProps, todoStatsProps } from "@/types";
-import { Calendar, Camera, Mail, MapPin, Phone } from "lucide-react";
+import { Calendar, Mail, MapPin, Phone, Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 import Image from "next/image";
+import { Button } from "./ui/button";
+import { deleteUser } from "@/actions/profile";
 
 const ProfileComponents = () => {
   const { data: session } = useSession();
@@ -31,6 +33,10 @@ const ProfileComponents = () => {
     fetchStats();
   }, [session?.user?.id]);
 
+  const deleteProfile = async () => {
+    return deleteUser;
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-3xl mx-auto">
@@ -42,13 +48,10 @@ const ProfileComponents = () => {
                 <Image
                   src={user?.image || "/person.svg"}
                   alt={user?.name || "username"}
-                  width={20}
-                  height={20}
-                  className="w-32 h-32 rounded-xl shadow-lg object-cover border-4 border-white"
+                  width={220}
+                  height={220}
+                  className="w-32 h-32 rounded-xl shadow-lg object-cover border-4 border-white bg-gradient-to-r from-blue-400 to-blue-600"
                 />
-                <button className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl">
-                  <Camera className="w-5 h-5 text-white" />
-                </button>
               </div>
 
               <div className="mt-6 sm:mt-0 flex-1">
@@ -57,10 +60,17 @@ const ProfileComponents = () => {
                 </h1>
                 <p className="text-gray-500">Product Designer</p>
               </div>
-
-              <button className="mt-6 sm:mt-0 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
-                Edit Profile
-              </button>
+              <div className="flex gap-2 items-center">
+                <Button className="mt-6 sm:mt-0 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                  Edit Profile
+                </Button>
+                <Button
+                  onClick={() => {}}
+                  className="mt-6 sm:mt-0 px-4 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                >
+                  <Trash2 size={22} />
+                </Button>
+              </div>
             </div>
 
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">

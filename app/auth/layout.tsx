@@ -4,11 +4,9 @@ export default function AuthLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html>
-      <body>
-        <LogoNav />
-        {children}
-      </body>
-    </html>
+    <div suppressHydrationWarning>
+      <LogoNav />
+      <main>{children}</main>
+    </div>
   );
 }
