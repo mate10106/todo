@@ -52,7 +52,7 @@ export const RegisterFormContent = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <div className=" text-white">
+        <div className="text-black">
           <FormField
             control={form.control}
             name="name"

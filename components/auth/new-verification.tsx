@@ -40,11 +40,12 @@ export const NewVerificationForm = () => {
 
   return (
     <CardWrapper
-      headerLabel="Confirm your verification"
+      headerLabel="Hang tight! We're completing the verification process"
       backButtonLabel="Back to login"
       backButtonHref="/auth/login"
+      titleLabel="Verification in Progress"
     >
-      <div className="text-white">
+      <div className="text-white text-center">
         {!success && !error && <BeatLoader color="#256" />}
         <FormSuccess message={success} />
         <FormError message={error} />

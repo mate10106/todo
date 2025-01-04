@@ -22,6 +22,7 @@ import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { Button } from "../ui/button";
 import { useSearchParams } from "next/navigation";
+import { LockKeyholeIcon } from "lucide-react";
 
 const NewPasswordForm = () => {
   const searchParams = useSearchParams();
@@ -58,6 +59,7 @@ const NewPasswordForm = () => {
       backButtonLabel="Back to login"
       backButtonHref="/auth/login"
       showSocial={false}
+      titleLabel="Reset Your Password"
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -85,11 +87,13 @@ const NewPasswordForm = () => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button
-            className="w-full bg-[#d66b2b] hover:bg-[#191635] duration-300 text-lg"
+            className="w-full bg-blue-600/85 font-bold hover:bg-blue-600"
+            variant="default"
             type="submit"
             disabled={isPanding}
           >
-            Reset password
+            <LockKeyholeIcon size={22} />
+            Save Password
           </Button>
         </form>
       </Form>

@@ -19,6 +19,7 @@ import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { Button } from "../ui/button";
 import { reset } from "@/actions/reset";
+import { ListRestart } from "lucide-react";
 
 export const ResetForm = () => {
   const [isPanding, setIsPanding] = useState();
@@ -50,6 +51,7 @@ export const ResetForm = () => {
       backButtonLabel="Back to login"
       backButtonHref="/auth/login"
       showSocial={false}
+      titleLabel="Recover Your Account"
     >
       <Form {...form}>
         <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
@@ -78,10 +80,12 @@ export const ResetForm = () => {
           <FormSuccess message={success} />
           <Button
             type="submit"
+            variant="default"
             disabled={isPanding}
-            className="w-full bg-[#d66b2b] hover:bg-[#191635] duration-300 text-lg"
+            className="w-full bg-blue-600/85 font-bold hover:bg-blue-600"
           >
-            Send reset email
+            <ListRestart size={28} />
+            Send Reset Link
           </Button>
         </form>
       </Form>
