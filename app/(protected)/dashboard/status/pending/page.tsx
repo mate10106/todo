@@ -36,7 +36,7 @@ const PendingPage = () => {
   };
 
   return (
-    <section className="flex flex-col gap-6 mt-8 max-lg:mt-12 m-12">
+    <section className="flex flex-col gap-6 mt-2 max-lg:mt-12 m-12">
       <div>
         <div className="flex flex-col justify-between m-7 rounded-lg">
           {isLoading ? (
@@ -44,14 +44,13 @@ const PendingPage = () => {
               <Loader2 className="animate-spin text-blue-600" />
             </div>
           ) : (
-            <>
-              <div className="flex w-full max-w-2xl mx-auto">
+            <div className="flex w-full max-w-2xl mx-auto">
+              {todos.length < 1 ? (
+                <p className="mx-auto">No tasks pending</p>
+              ) : (
                 <ListTasks todos={todos} />
-              </div>
-              <div className="flex w-full max-w-2xl mx-auto">
-                <ListCompletedTodoForm />
-              </div>
-            </>
+              )}
+            </div>
           )}
         </div>
       </div>

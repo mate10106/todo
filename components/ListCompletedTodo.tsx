@@ -71,7 +71,9 @@ const ListCompletedTodoForm = () => {
                   <Check size={14} className="text-white" />
                 )}
               </button>
-              <span className="text-lg">{completedTodo.title}</span>
+              <span className="text-lg line-through">
+                {completedTodo.title}
+              </span>
             </div>
             <button className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-all duration-200">
               <Trash2 size={17} />
