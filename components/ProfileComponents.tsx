@@ -9,8 +9,10 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { deleteUser } from "@/actions/profile";
+import EditProfileComponents from "./EditProfileComponents";
 
 const ProfileComponents = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: session } = useSession();
   const [stats, setStats] = useState<todoStatsProps>({
     totalTasks: 0,
@@ -18,6 +20,9 @@ const ProfileComponents = () => {
     inProgress: 0,
     overdue: 0,
   });
+
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
 
   const user = session?.user;
 
@@ -61,7 +66,10 @@ const ProfileComponents = () => {
                 <p className="text-gray-500">Product Designer</p>
               </div>
               <div className="flex gap-2 items-center">
-                <Button className="mt-6 sm:mt-0 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                <Button
+                  onClick={handleOpenModal}
+                  className="mt-6 sm:mt-0 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                >
                   Edit Profile
                 </Button>
                 <Button
@@ -119,6 +127,7 @@ const ProfileComponents = () => {
           </div>
         </div>
       </div>
+      {isModalOpen && <EditProfileComponents closeModal={handleCloseModal} />}
     </div>
   );
 };

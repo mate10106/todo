@@ -1,9 +1,12 @@
 "use client";
 
+import Link from "next/link";
+import * as z from "zod";
+
 import { LoginSchema } from "@/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
+
 import {
   Form,
   FormControl,
@@ -12,19 +15,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { LogIn } from "lucide-react";
-import Link from "next/link";
 import { login } from "@/actions/login";
 import { useState, useTransition } from "react";
-
-interface LoginFormContentProps {
-  token: string | null;
-  urlError?: string;
-}
+import { LoginFormContentProps } from "@/types";
 
 export const LoginFormContent = ({
   token,

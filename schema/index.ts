@@ -66,3 +66,17 @@ export const CreatedTodoSchema = z.object({
   category: z.string().optional(),
   priority: z.string(),
 });
+
+export const EditProfileSchema = z.object({
+  name: z
+    .string()
+    .min(2, { message: "Name must be at least 2 characters long." })
+    .trim(),
+  email: z.string().email({ message: "Please eneter a valid email." }).trim(),
+  phone: z
+    .string()
+    .regex(/^\+?(\d{1,3})?[-. ]?(\(?\d{1,4}\)?)?[-. ]?\d{1,4}[-. ]?\d{1,9}$/, {
+      message: "Not valide phone number",
+    }),
+  location: z.string({ message: "Give me valide location" }),
+});

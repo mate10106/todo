@@ -91,3 +91,13 @@ interface todoStatsProps {
   inProgress: number;
   overdue: number;
 }
+
+interface EditProfileFormContentProps {
+  closeModal: () => void;
+  urlError?: string;
+}
+
+interface LoginFormContentProps {
+  token: string;
+  urlError?: string;
+}
