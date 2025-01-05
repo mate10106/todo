@@ -38,7 +38,7 @@ const Hero = () => {
       <div className="flex justify-center max-w-[1000px] w-full mx-auto">
         <Button
           variant="default"
-          className="w-[65%] h-12 rounded-lg bg-blue-600/80 hover:bg-blue-600 transition-colors"
+          className="w-[65%] h-12 rounded-xl bg-blue-600/80 hover:bg-blue-600 transition-colors"
           onClick={handleOpenModal}
         >
           <span className="text-lg font-bold">+ Add New task</span>
