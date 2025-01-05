@@ -36,7 +36,7 @@ const TodayPage = () => {
   };
 
   return (
-    <section className="flex flex-col gap-6 mt-2 max-lg:mt-12 m-12">
+    <section className="flex flex-col mt-2 m-2">
       <div>
         <div className="flex flex-col justify-between m-7 rounded-lg">
           {isLoading ? (
@@ -44,7 +44,7 @@ const TodayPage = () => {
               <Loader2 className="animate-spin text-blue-600" />
             </div>
           ) : (
-            <div className="flex flex-col justify-between h-[58svh] w-full max-w-2xl mx-auto">
+            <div className="flex flex-col justify-between h-[63svh] w-full max-w-2xl mx-auto">
               {todos.length < 1 ? (
                 <p className="mx-auto">No tasks today</p>
               ) : (

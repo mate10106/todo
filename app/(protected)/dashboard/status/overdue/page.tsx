@@ -36,12 +36,12 @@ const OverduePage = () => {
   };
 
   return (
-    <section className="flex flex-col gap-6 mt-2 max-lg:mt-12 m-12">
+    <section className="flex flex-col mt-2 m-2">
       <div>
         <div className="flex flex-col justify-between m-7 rounded-lg">
           {isLoading ? (
             <div className="flex justify-center items-center">
-              <Loader2 className="animate-spin text-blye-600" />
+              <Loader2 className="animate-spin text-blue-600" />
             </div>
           ) : (
             <div className="flex w-full max-w-2xl mx-auto">

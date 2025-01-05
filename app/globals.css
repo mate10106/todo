@@ -2,16 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-::-moz-selection {
-  color: white;
-  background: rgb(0, 0, 0);
-}
-
-::selection {
-  color: rgb(255, 255, 255);
-  background: rgb(0, 0, 0);
-}
-
 body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: #ffffff;

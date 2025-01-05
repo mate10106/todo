@@ -55,7 +55,7 @@ const ListCompletedTodoForm = () => {
       {todos.map((completedTodo, index) => (
         <li
           key={index}
-          className="group flex flex-col justify-around m-1 border border-gray-100 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 h-24"
+          className="group flex flex-col justify-around m-1 max-sm:m-0 border border-gray-100 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 h-24"
         >
           <div className="flex justify-between mr-4 mt-2">
             <div className="flex items-center gap-4">

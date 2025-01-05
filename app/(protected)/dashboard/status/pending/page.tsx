@@ -36,7 +36,7 @@ const PendingPage = () => {
   };
 
   return (
-    <section className="flex flex-col gap-6 mt-2 max-lg:mt-12 m-12">
+    <section className="flex flex-col mt-2 m-2">
       <div>
         <div className="flex flex-col justify-between m-7 rounded-lg">
           {isLoading ? (
