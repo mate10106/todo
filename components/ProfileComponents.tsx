@@ -87,16 +87,8 @@ const ProfileComponents = () => {
                 label="Email"
                 value={`${user?.email}`}
               />
-              <ProfileField
-                icon={<Phone />}
-                label="Phone"
-                value="+1 (555) 123-4567"
-              />
-              <ProfileField
-                icon={<MapPin />}
-                label="Location"
-                value="San Francisco, CA"
-              />
+              <ProfileField icon={<Phone />} label="Phone" value="=" />
+              <ProfileField icon={<MapPin />} label="Location" value="-" />
               <ProfileField
                 icon={<Calendar />}
                 label="Joined"

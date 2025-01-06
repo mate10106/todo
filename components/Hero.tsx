@@ -34,7 +34,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="mt-20">
+    <section className="mt-6">
       <div className="flex justify-center max-w-[1000px] w-full mx-auto">
         <Button
           variant="default"

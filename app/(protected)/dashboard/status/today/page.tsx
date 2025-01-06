@@ -44,7 +44,7 @@ const TodayPage = () => {
               <Loader2 className="animate-spin text-blue-600" />
             </div>
           ) : (
-            <div className="flex flex-col justify-between h-[63svh] w-full max-w-2xl mx-auto">
+            <div className="flex flex-col justify-between h-[69svh] max-sm:h-[70svh] w-full max-w-2xl mx-auto">
               {todos.length < 1 ? (
                 <p className="mx-auto">No tasks today</p>
               ) : (

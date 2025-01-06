@@ -1,17 +1,24 @@
 "use client";
 
-import { NavLinkProps } from "@/types";
-import { Home, User } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+
+import { NavLinkProps } from "@/types";
+import { Home, List, User, X } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import { Button } from "./ui/button";
+import { useState } from "react";
+import MobileNavbar from "./MobileNavbar";
 
 const Navbar = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: session } = useSession();
   const userProfileImage = session?.user?.image
     ? session?.user?.image
     : "/person.svg";
+
+  const handleToggleModal = () => setIsModalOpen(!isModalOpen);
 
   return (
     <nav className="border-b border-gray-200">
@@ -34,14 +41,16 @@ const Navbar = () => {
               />
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <Image
-              src={userProfileImage}
-              width={26}
-              height={26}
-              alt="profileImage"
-              className="rounded-full size-8"
-            />
+          <div className="flex items-center gap-4 max-sm:hidden">
+            <Link href="/dashboard/profile">
+              <Image
+                src={userProfileImage}
+                width={26}
+                height={26}
+                alt="profileImage"
+                className="rounded-full size-8"
+              />
+            </Link>
             <button
               onClick={() => signOut({ callbackUrl: "/" })}
               className="flex items-center gap-2 text-neutral-600 font-bold text-base hover:bg-slate-500/10 transition-colors p-2 rounded-lg duration-500"
@@ -55,8 +64,14 @@ const Navbar = () => {
               Logout
             </button>
           </div>
+          <div className="flex items-center sm:hidden">
+            <Button variant="outline" onClick={handleToggleModal}>
+              {isModalOpen ? <X size={22} /> : <List size={22} />}
+            </Button>
+          </div>
         </div>
       </div>
+      {isModalOpen && <MobileNavbar />}
     </nav>
   );
 };
