@@ -58,7 +58,7 @@ export const CreateTaskForm = ({
           } else {
             setSuccess(data.success);
             onAddTodo(data);
-            setTimeout(() => closeModal(), 3000);
+            setTimeout(() => closeModal(), 0);
           }
         })
         .catch((err) => setError("An unexpected error occurred."));

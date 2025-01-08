@@ -18,6 +18,20 @@ const TodayPage = () => {
   const userId = session?.user?.id;
 
   useEffect(() => {
+    const handleTodoCreated = () => {
+      if (userId) {
+        fetchTodos(userId);
+      }
+    };
+
+    window.addEventListener("todoCreated", handleTodoCreated);
+
+    return () => {
+      window.removeEventListener("todoCreated", handleTodoCreated);
+    };
+  }, [userId]);
+
+  useEffect(() => {
     if (userId) {
       fetchTodos(userId);
     }

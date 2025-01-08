@@ -30,6 +30,8 @@ const Hero = () => {
   const userId = session?.user?.id;
 
   const handleAddTodo = (newTodo: Todo) => {
+    const event = new CustomEvent("todoCreated", { detail: newTodo });
+    window.dispatchEvent(event);
     setTodos((prevTodos) => [newTodo, ...prevTodos]);
   };
 
