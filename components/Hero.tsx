@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "./ui/button";
-import { CreateTodoForm } from "./CRUD/create-todo";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { Todo } from "@/types";
+import { CreateTaskForm } from "./CreateTask";
 
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,33 +44,16 @@ const Hero = () => {
           <span className="text-lg font-bold">+ Add New task</span>
         </Button>
       </div>
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50">
-          <div className="flex min-h-screen items-center justify-center p-4">
-            <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm" />
-            <div className="relative w-full max-w-lg rounded-2xl bg-white p-2 shadow-xl">
-              <div className="float-end">
-                <button
-                  className="hover:text-blue-700 transition-colors duration-300"
-                  onClick={handleCloseModal}
-                >
-                  ✖
-                </button>
-              </div>
-              {userId ? (
-                <div>
-                  <CreateTodoForm
-                    userId={userId}
-                    closeModal={handleCloseModal}
-                    onAddTodo={handleAddTodo}
-                  />
-                </div>
-              ) : (
-                <p>Loading user data...</p>
-              )}
-            </div>
-          </div>
-        </div>
+      {userId && (
+        <>
+          {isModalOpen && (
+            <CreateTaskForm
+              userId={userId}
+              closeModal={handleCloseModal}
+              onAddTodo={handleAddTodo}
+            />
+          )}
+        </>
       )}
     </section>
   );

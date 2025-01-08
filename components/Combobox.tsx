@@ -52,7 +52,7 @@ export function ComboboxDemo({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
-        <Command className="w-[45vh] cursor-pointer">
+        <Command className="w-[45vh] max-sm:w-[39vh] cursor-pointer">
           <CommandList>
             <CommandGroup>
               {data.map((data) => (
