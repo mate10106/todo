@@ -71,7 +71,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      {isModalOpen && <MobileNavbar />}
+      {isModalOpen && <MobileNavbar onNavigate={handleToggleModal} />}
     </nav>
   );
 };

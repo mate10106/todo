@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
-const MobileNavbar = () => {
+const MobileNavbar = ({ onNavigate }: { onNavigate: () => void }) => {
   const pathname = usePathname();
   const isActive = (href: string) => pathname === href;
 
@@ -15,6 +15,7 @@ const MobileNavbar = () => {
         <div className="flex flex-col mx-auto ml-2">
           <Link
             href="/dashboard/status/today"
+            onClick={onNavigate}
             className={`flex cursor-pointer gap-4 p-2 font-bold text-base hover:bg-slate-500/10 transition-colors rounded-lg duration-500 ${
               isActive("/dashboard/status/today")
                 ? "text-blue-600 bg-blue-50"
@@ -26,6 +27,7 @@ const MobileNavbar = () => {
           </Link>
           <Link
             href="/dashboard/profile"
+            onClick={onNavigate}
             className={`flex cursor-pointer gap-4 p-2 font-bold text-base hover:bg-slate-500/10 transition-colors rounded-lg duration-500 ${
               isActive("/dashboard/profile")
                 ? "text-blue-600 bg-blue-50"
