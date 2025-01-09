@@ -70,7 +70,7 @@ const EditProfileComponents = ({
                   src={user?.image ? user.image : "/person.svg"}
                   width={120}
                   height={120}
-                  alt="asd"
+                  alt="profile image"
                   className="size-12 rounded-lg bg-cover"
                 />
               </Button>
@@ -91,7 +91,6 @@ const EditProfileComponents = ({
                             id="name"
                             type="name"
                             placeholder="name"
-                            className="pointer-events-none"
                           />
                         </FormControl>
                         <FormMessage />
@@ -123,33 +122,14 @@ const EditProfileComponents = ({
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Phone</FormLabel>
+                        <FormLabel>Profession</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
                             disabled={isPending}
-                            id="phone"
-                            type="phone"
-                            placeholder="+1 (555) 123-4567"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="location"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Location</FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            disabled={isPending}
-                            id="location"
-                            type="location"
-                            placeholder="San Francisco, CA"
+                            id="profession"
+                            type="profession"
+                            placeholder="software engineer"
                           />
                         </FormControl>
                         <FormMessage />

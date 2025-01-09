@@ -76,7 +76,9 @@ const ListTasks = ({ todos: initialTodos }: { todos: Todo[] }) => {
           </div>
           <div className="flex items-center gap-2 ml-2 text-gray-500 text-sm">
             <Calendar size={16} />
-            <span>{new Date(todo.deadline).toDateString()}</span>
+            <span className="max-sm:text-xs">
+              {new Date(todo.deadline).toDateString()}
+            </span>
             <div className="flex items-center gap-1">
               <Tag size={14} />
               <span>{todo.category}</span>

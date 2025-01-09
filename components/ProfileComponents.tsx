@@ -2,7 +2,15 @@
 
 import { getTodoStats } from "@/actions/todo";
 import { ProfileFieldProps, todoStatsProps } from "@/types";
-import { Calendar, Mail, MapPin, Phone, Trash2 } from "lucide-react";
+import {
+  Calendar,
+  CheckCircle2,
+  Clock,
+  Mail,
+  MapPin,
+  Phone,
+  Trash2,
+} from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
@@ -63,7 +71,7 @@ const ProfileComponents = () => {
                 <h1 className="text-2xl font-bold text-gray-900">
                   {user?.name}
                 </h1>
-                <p className="text-gray-500">Product Designer</p>
+                <p className="text-gray-500"></p>
               </div>
               <div className="flex gap-2 items-center">
                 <Button
@@ -87,8 +95,6 @@ const ProfileComponents = () => {
                 label="Email"
                 value={`${user?.email}`}
               />
-              <ProfileField icon={<Phone />} label="Phone" value="=" />
-              <ProfileField icon={<MapPin />} label="Location" value="-" />
               <ProfileField
                 icon={<Calendar />}
                 label="Joined"
@@ -100,20 +106,27 @@ const ProfileComponents = () => {
               <h2 className="text-lg font-semibold text-gray-900 mb-4">
                 Statistics
               </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                 <StatCard
+                  icon={<CheckCircle2 className="w-5 h-5 text-green-500" />}
                   label="Total Tasks"
                   value={stats.totalTasks.toString()}
                 />
                 <StatCard
+                  icon={<Clock className="w-5 h-5 text-blue-500" />}
                   label="Completed"
                   value={stats.completed.toString()}
                 />
                 <StatCard
+                  icon={<CheckCircle2 className="w-5 h-5 text-yellow-500" />}
                   label="In Progress"
                   value={stats.inProgress.toString()}
                 />
-                <StatCard label="Overdue" value={stats.overdue.toString()} />
+                <StatCard
+                  icon={<Clock className="w-5 h-5 text-red-500" />}
+                  label="Overdue"
+                  value={stats.overdue.toString()}
+                />
               </div>
             </div>
           </div>
@@ -138,10 +151,19 @@ function ProfileField({ icon, label, value }: ProfileFieldProps) {
   );
 }
 
-function StatCard({ label, value }: { label: string; value: string }) {
+function StatCard({
+  label,
+  value,
+  icon,
+}: {
+  label: string;
+  value: string;
+  icon: React.ReactNode;
+}) {
   return (
-    <div className="bg-gray-50 rounded-lg p-4">
-      <p className="text-sm text-gray-500">{label}</p>
+    <div className="bg-gray-50 rounded-lg p-5 space-y-4 hover:shadow-xl transition-all duration-500">
+      <p>{icon}</p>
+      <p className="text-sm text-gray-500 font-bold">{label}</p>
       <p className="text-xl font-semibold text-gray-900 mt-1">{value}</p>
     </div>
   );
