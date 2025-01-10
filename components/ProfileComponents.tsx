@@ -18,9 +18,11 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { deleteUser } from "@/actions/profile";
 import EditProfileComponents from "./EditProfileComponents";
+import DeleteAlertComponents from "./DeleteAlertComponents";
 
 const ProfileComponents = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const { data: session } = useSession();
   const [stats, setStats] = useState<todoStatsProps>({
     totalTasks: 0,
@@ -46,8 +48,11 @@ const ProfileComponents = () => {
     fetchStats();
   }, [session?.user?.id]);
 
-  const deleteProfile = async () => {
-    return deleteUser;
+  const handleDelete = async () => {
+    if (session?.user?.id) {
+      await deleteUser(session.user.id);
+      window.location.href = "/";
+    }
   };
 
   return (
@@ -81,7 +86,7 @@ const ProfileComponents = () => {
                   Edit Profile
                 </Button>
                 <Button
-                  onClick={() => {}}
+                  onClick={() => setShowDeleteAlert(true)}
                   className="mt-6 sm:mt-0 px-4 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
                 >
                   <Trash2 size={22} />
@@ -133,6 +138,11 @@ const ProfileComponents = () => {
         </div>
       </div>
       {isModalOpen && <EditProfileComponents closeModal={handleCloseModal} />}
+      <DeleteAlertComponents
+        showDeleteAlert={showDeleteAlert}
+        setShowDeleteAlert={setShowDeleteAlert}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 };
