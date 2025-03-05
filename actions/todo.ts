@@ -1,9 +1,10 @@
 "use server";
 
+import { trackActivity } from "@/lib/activities";
 import { db } from "@/lib/db";
 import { CreatedTodoSchema } from "@/schema";
 import { TodoStatus } from "@prisma/client";
-import { z } from "zod";
+import { date, z } from "zod";
 
 export const createTodo = async (
   value: z.infer<typeof CreatedTodoSchema>,
@@ -23,7 +24,7 @@ export const createTodo = async (
     const initialStatus =
       new Date(deadline) > currentDate ? "PENDING" : "IN_PROGRESS";
 
-    await db.createdTodo.create({
+    const todo = await db.createdTodo.create({
       data: {
         title,
         deadline,
@@ -36,6 +37,8 @@ export const createTodo = async (
         },
       },
     });
+
+    await trackActivity(userId, todo.id, todo.title, "CREATED");
 
     return { success: "Todo is created!" };
   } catch (error) {
@@ -66,10 +69,25 @@ export const updateTodoStatus = async (
   completed: boolean
 ) => {
   try {
+    const todo = await db.createdTodo.findUnique({
+      where: { id },
+    });
+
+    if (!todo) {
+      return { error: "Todo not found" };
+    }
+
     const updatedTodo = await db.createdTodo.update({
       where: { id },
       data: { status, completed },
     });
+
+    await trackActivity(todo.userId, id, todo.title, "MODIFIED");
+
+    if (completed && !todo.completed) {
+      await trackActivity(todo.userId, id, todo.title, "COMPLETED");
+    }
+
     return updatedTodo;
   } catch (error) {
     return { error: "Failed to update todo status" };
@@ -78,9 +96,19 @@ export const updateTodoStatus = async (
 
 export const deleteTodo = async (id: string) => {
   try {
+    const todo = await db.createdTodo.findUnique({
+      where: { id },
+    });
+
+    if (!todo) {
+      return { error: "Todo not found" };
+    }
+
     const deleteTask = await db.createdTodo.delete({
       where: { id },
     });
+
+    await trackActivity(todo.userId, id, todo.title, "REMOVED");
 
     return deleteTask;
   } catch (error) {

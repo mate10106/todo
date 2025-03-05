@@ -19,10 +19,14 @@ import { Button } from "./ui/button";
 import { deleteUser } from "@/actions/profile";
 import EditProfileComponents from "./EditProfileComponents";
 import DeleteAlertComponents from "./DeleteAlertComponents";
+import RecentActivityComponents from "./RecentActivityComponents";
+import { getUserActivities } from "@/actions/activity";
+import { Activity } from "@prisma/client";
 
 const ProfileComponents = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [activities, setActivities] = useState<Activity[]>([]);
   const { data: session } = useSession();
   const [stats, setStats] = useState<todoStatsProps>({
     totalTasks: 0,
@@ -45,7 +49,15 @@ const ProfileComponents = () => {
         setStats(todoStats);
       }
     };
+
+    const fetchActivities = async () => {
+      if (session?.user?.id) {
+        const recentActivities = await getUserActivities(session.user.id, 5);
+        setActivities(recentActivities);
+      }
+    };
     fetchStats();
+    fetchActivities();
   }, [session?.user?.id]);
 
   const handleDelete = async () => {
@@ -134,6 +146,12 @@ const ProfileComponents = () => {
                 />
               </div>
             </div>
+          </div>
+          <div className="ml-7">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+              Recent Activity
+            </h2>
+            <RecentActivityComponents activities={activities} />
           </div>
         </div>
       </div>

@@ -26,6 +26,7 @@ model User {
   updateAt DateTime @updatedAt
   accounts Account[]
   todos createdTodo[]
+  activities  Activity[]
 }
 
 model Account {
@@ -91,5 +92,24 @@ model createdTodo {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 
+  @@index([userId])
+}
+
+enum ActivityType {
+  CREATED
+  COMPLETED
+  MODIFIED
+  REMOVED
+}
+
+model Activity {
+  id          String       @id @default(cuid()) @map("_id")
+  userId      String
+  todoId      String
+  todoTitle   String
+  action      ActivityType
+  timestamp   DateTime     @default(now())
+  user        User         @relation(fields: [userId], references: [id])
+  
   @@index([userId])
 }
