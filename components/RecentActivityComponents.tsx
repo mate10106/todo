@@ -38,13 +38,13 @@ const RecentActivityComponents = ({ activities }: RecentActivityProps) => {
       {activities.map((activity) => (
         <div
           key={activity.id}
-          className="flex justify-between items-center py-3 border-b"
+          className="flex justify-between items-center py-3 bg-black/5 rounded-lg"
         >
-          <div>
+          <div className="m-2">
             <div className="font-medium">{getActionText(activity.action)}</div>
             <div className="text-blue-600">{activity.todoTitle}</div>
           </div>
-          <div className="text-gray-500">
+          <div className="text-gray-500 mr-2">
             {formatDistanceToNow(new Date(activity.timestamp), {
               addSuffix: true,
             })}
