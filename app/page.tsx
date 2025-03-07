@@ -1,3 +1,5 @@
+import Features from "@/components/Features";
+import Footer from "@/components/Footer";
 import { CheckCircle2, ListTodo } from "lucide-react";
 import Link from "next/link";
 
@@ -57,8 +59,6 @@ export default function Home() {
                       ].map((feature, index) => (
                         <div
                           key={index}
-                          font-bold
-                          text-3xl
                           className="flex items-center space-x-3"
                         >
                           <CheckCircle2 className="h-5 w-5 text-blue-500" />
@@ -71,12 +71,8 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="text-center pt-12">
-            <h2 className="font-bold text-3xl">Why Choose Our Task Manager?</h2>
-            <p className="pt-3 text-black/55 text-[22px]">
-              Discover the features that make our platform stand out
-            </p>
-          </div>
+          <Features />
+          <Footer />
         </div>
       </div>
     </section>
