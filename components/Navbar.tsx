@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { NavLinkProps } from "@/types";
-import { Home, List, User, X } from "lucide-react";
+import { Calendar, Home, List, User, X } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
@@ -33,6 +33,11 @@ const Navbar = () => {
                 icon={<Home size={20} />}
                 text="Home"
                 href="/dashboard/status/today"
+              />
+              <NavLink
+                icon={<Calendar size={20} />}
+                text="Calender"
+                href="/dashboard/calender"
               />
               <NavLink
                 icon={<User size={20} />}

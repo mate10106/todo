@@ -2,15 +2,7 @@
 
 import { getTodoStats } from "@/actions/todo";
 import { ProfileFieldProps, todoStatsProps } from "@/types";
-import {
-  Calendar,
-  CheckCircle2,
-  Clock,
-  Mail,
-  MapPin,
-  Phone,
-  Trash2,
-} from "lucide-react";
+import { Calendar, CheckCircle2, Clock, Mail, Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
