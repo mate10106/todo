@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   getDaysInMonth,
@@ -11,10 +11,30 @@ import {
   weekDays,
 } from "@/data/calender";
 import { Todo } from "@/types";
+import { useSession } from "next-auth/react";
+import { getTodosByUserId } from "@/actions/todo";
 
-export default function Calendar({ todos: initialTodos }: { todos: Todo[] }) {
+export default function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [todos, setTodos] = useState<Todo[]>(initialTodos);
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const { data: session } = useSession();
+
+  const userId = session?.user?.id;
+
+  useEffect(() => {
+    if (userId) {
+      fetchCalander(userId);
+    }
+  }, [userId]);
+
+  const fetchCalander = async (userId: string) => {
+    try {
+      const data = await getTodosByUserId(userId);
+      setTodos(data);
+    } catch (error) {
+      console.error("Error fetching calender:", error);
+    }
+  };
 
   const getDayTasks = (day: number) => {
     return todos.filter((todo) => {
