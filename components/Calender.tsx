@@ -16,6 +16,18 @@ import { getTodosByUserId } from "@/actions/todo";
 
 export default function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
+
+  const getTodoStatusColor = (todo: Todo) => {
+    if (todo.status === "OVERDUE") {
+      return "bg-red-100 dark:bg-red-900/30 border-red-200 dark:border-red-800";
+    } else if (todo.status === "PENDING") {
+      return "bg-yellow-100 dark:bg-yellow-900/30 border-yellow-200 dark:border-yellow-800";
+    } else if (todo.status === "COMPLETED") {
+      return "bg-green-100 dark:bg-green-900/30 border-green-200 dark:border-green-800";
+    }
+    return "bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700";
+  };
+
   const [todos, setTodos] = useState<Todo[]>([]);
   const { data: session } = useSession();
 
@@ -76,7 +88,7 @@ export default function Calendar() {
             isToday ? "bg-blue-50 dark:bg-blue-900/20" : ""
           }`}
         >
-          <div className="flex justify-between items-start">
+          <div className="flex justify-between items-start max-sm:flex-col max-sm:items-center">
             <span
               className={`text-sm font-medium ${
                 isToday
@@ -93,10 +105,12 @@ export default function Calendar() {
             )}
           </div>
           <div className="mt-2 space-y-1">
-            {dayTasks.slice(0, 3).map((task, index) => (
+            {dayTasks.slice(0, 3).map((task) => (
               <div
                 key={task.id}
-                className="text-xs p-1 rounded bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700"
+                className={`text-xs p-1 rounded shadow-sm ${getTodoStatusColor(
+                  task
+                )}`}
               >
                 <div className="truncate text-gray-700 dark:text-gray-300">
                   {task.title}
