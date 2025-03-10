@@ -7,7 +7,7 @@ export const updateOverdueTodos = async () => {
       const currentDate = new Date();
       currentDate.setHours(0, 0, 0, 0);
 
-      const result = await db.createdTodo.updateMany({
+      const updatedInProgress = await db.createdTodo.updateMany({
         where: {
           deadline: { lt: currentDate },
           status: "IN_PROGRESS",
@@ -17,7 +17,21 @@ export const updateOverdueTodos = async () => {
         },
       });
 
-      console.log(`Updated ${result.count} overdue todos`);
+      const tomorrow = new Date(currentDate);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      const updatedPending = await db.createdTodo.updateMany({
+        where: {
+          deadline: { lt: tomorrow },
+          status: "PENDING",
+        },
+        data: {
+          status: "IN_PROGRESS",
+        },
+      });
+
+      console.log(`Updated ${updatedInProgress.count} overdue todos`);
+      console.log(`Updated ${updatedPending.count} to in progress todos`);
     } catch (error) {
       console.error("Error updating overdue todos:", error);
     }
