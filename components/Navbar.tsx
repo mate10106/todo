@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import MobileNavbar from "./MobileNavbar";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,12 +22,14 @@ const Navbar = () => {
   const handleToggleModal = () => setIsModalOpen(!isModalOpen);
 
   return (
-    <nav className="border-b border-gray-200">
+    <nav className="border-b border-gray-200 dark:border-gray-600 dark:bg-gray-900 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <span className="text-xl font-semibold text-gray-800">Todo</span>
+              <span className="text-xl font-semibold text-gray-800 dark:text-white">
+                Todo
+              </span>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               <NavLink
@@ -47,6 +50,7 @@ const Navbar = () => {
             </div>
           </div>
           <div className="flex items-center gap-4 max-sm:hidden">
+            <ThemeToggle />
             <Link href="/dashboard/profile">
               <Image
                 src={userProfileImage}
@@ -58,7 +62,7 @@ const Navbar = () => {
             </Link>
             <button
               onClick={() => signOut({ callbackUrl: "/" })}
-              className="flex items-center gap-2 text-neutral-600 font-bold text-base hover:bg-slate-500/10 transition-colors p-2 rounded-lg duration-500"
+              className="flex items-center gap-2 text-neutral-600 dark:text-white font-bold text-base hover:bg-slate-500/10 transition-colors p-2 rounded-lg duration-500"
             >
               <Image
                 src="/exit-svgrepo-com.svg"
@@ -88,11 +92,11 @@ function NavLink({ icon, text, href }: NavLinkProps) {
   return (
     <Link
       href={href}
-      className={`inline-flex items-center px-1 pt-1 text-sm font-medium border-b-2 transition-colors duration-200 space-x-2
+      className={`inline-flex items-center px-1 pt-1 text-sm font-medium border-b-4 transition-colors duration-200 space-x-2
         ${
           isActive
-            ? "border-blue-500 text-gray-900"
-            : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+            ? "border-blue-500 text-gray-900 dark:text-white"
+            : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-white/60 dark:hover:text-white"
         }`}
     >
       {icon}
