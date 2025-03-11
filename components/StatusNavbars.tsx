@@ -1,48 +1,67 @@
 "use client";
 
 import { AlertCircle, Calendar, Clock } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
 const StatusNavbar = () => {
   const pathname = usePathname();
-
   const currentStatus = pathname.split("/").pop();
 
-  const getLinkStyle = (linkStatus: string) => {
-    const baseStyle =
-      "flex justify-center items-center gap-2 w-[13.4rem] h-12 hover:bg-blue-100/35 dark:bg-gray-800 dark:hover:bg-gray-700/20 dark:border-gray-700 transition-colors duration-500 border-b-2";
-    return currentStatus === linkStatus.toLowerCase()
-      ? `${baseStyle} bg-blue-100/65 font-semibold border-b-2 border-b-blue-800 dark:bg-blue-800`
-      : baseStyle;
+  const getNavItemStyle = (status: string) => {
+    const isActive = currentStatus === status.toLowerCase();
+    const isUrgent = status.toLowerCase() === "overdue";
+    const isPending = status.toLowerCase() === "pending";
+    const isToday = status.toLowerCase() === "today";
+
+    let textColorClass = "text-gray-600 dark:text-gray-300";
+
+    if (isToday) {
+      textColorClass = "text-blue-600 dark:text-blue-400";
+    } else if (isPending) {
+      textColorClass = "text-yellow-600 dark:text-yellow-400";
+    } else if (isUrgent) {
+      textColorClass = "text-red-600 dark:text-red-400";
+    }
+
+    return `flex-1 px-4 py-3 flex items-center justify-center space-x-2 border-b-2 transition-all duration-200
+      ${
+        isActive
+          ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
+          : "border-transparent hover:bg-gray-50 dark:hover:bg-gray-700/20"
+      }
+      ${textColorClass}`;
   };
 
   return (
-    <section className="mt-12 max-lg:mt-8 max-w-2xl mx-auto">
-      <div className="flex justify-center dark:text-white">
-        <Link
-          href="/dashboard/status/today"
-          className={`${getLinkStyle("today")}`}
-        >
-          <Calendar size={18} />
-          Today
-        </Link>
-        <Link
-          href="/dashboard/status/pending"
-          className={getLinkStyle("pending")}
-        >
-          <Clock size={18} />
-          Pending
-        </Link>
-        <Link
-          href="/dashboard/status/overdue"
-          className={`${getLinkStyle("overdue")}`}
-        >
-          <AlertCircle size={18} />
-          Overdue
-        </Link>
+    <section className="mb-8 mt-12">
+      <div className="max-w-2xl mx-auto">
+        <div className="flex">
+          <Link
+            href="/dashboard/status/today"
+            className={getNavItemStyle("today")}
+          >
+            <Calendar size={18} />
+            <span className="font-medium dark:bg-transparent">Today</span>
+          </Link>
+
+          <Link
+            href="/dashboard/status/pending"
+            className={getNavItemStyle("pending")}
+          >
+            <Clock size={18} />
+            <span className="font-medium dark:bg-transparent">Pending</span>
+          </Link>
+
+          <Link
+            href="/dashboard/status/overdue"
+            className={getNavItemStyle("overdue")}
+          >
+            <AlertCircle size={18} />
+            <span className="font-medium dark:bg-transparent">Overdue</span>
+          </Link>
+        </div>
       </div>
     </section>
   );
