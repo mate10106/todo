@@ -60,7 +60,7 @@ const TodayPage = () => {
           ) : (
             <div className="flex flex-col justify-between h-[69svh] max-sm:h-[70svh] w-full max-w-2xl mx-auto">
               {todos.length < 1 ? (
-                <p className="mx-auto">No tasks today</p>
+                <p className="mx-auto dark:text-white">No tasks today</p>
               ) : (
                 <ListTasks todos={todos} />
               )}
