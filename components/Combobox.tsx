@@ -38,13 +38,13 @@ export function ComboboxDemo({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
         asChild
-        className="focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        className="focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
       >
         <Button
           variant="default"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between bg-white text-black hover:bg-white "
+          className="w-full justify-between bg-white text-black hover:bg-white"
           disabled={disabled}
         >
           {value ? data.find((data) => data.value === value)?.label : title}
@@ -52,14 +52,14 @@ export function ComboboxDemo({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
-        <Command className="w-[45vh] max-sm:w-[39vh] cursor-pointer">
+        <Command className="w-[45vh] max-sm:w-[39vh] cursor-pointer dark:bg-gray-800">
           <CommandList>
             <CommandGroup>
               {data.map((data) => (
                 <CommandItem
                   key={data.value}
                   value={data.value}
-                  className="cursor-pointer"
+                  className="cursor-pointer dark:hover:bg-gray-700"
                   onSelect={(currentValue) => {
                     if (!disabled) {
                       onChange(currentValue === value ? "" : currentValue);

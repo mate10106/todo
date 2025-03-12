@@ -41,12 +41,12 @@ const PendingPage = () => {
         <div className="flex flex-col justify-between m-7 rounded-lg">
           {isLoading ? (
             <div className="flex justify-center items-center">
-              <Loader2 className="animate-spin text-blue-600" />
+              <Loader2 className="animate-spin text-yellow-600" />
             </div>
           ) : (
             <div className="flex w-full max-w-2xl mx-auto">
               {todos.length < 1 ? (
-                <p className="mx-auto">No tasks pending</p>
+                <p className="mx-auto dark:text-white">No tasks pending</p>
               ) : (
                 <ListTasks todos={todos} />
               )}
