@@ -62,7 +62,7 @@ const ProfileComponents = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-3xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm overflow-hidden">
           <div className="h-32 bg-gradient-to-r from-blue-400 to-blue-600" />
           <div className="relative px-6 pb-6">
             <div className="flex flex-col sm:flex-row sm:items-end -mt-16 sm:space-x-5">
@@ -77,7 +77,7 @@ const ProfileComponents = () => {
               </div>
 
               <div className="mt-6 sm:mt-0 flex-1">
-                <h1 className="text-2xl font-bold text-gray-900">
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                   {user?.name}
                 </h1>
                 <p className="text-gray-500"></p>
@@ -112,7 +112,7 @@ const ProfileComponents = () => {
             </div>
 
             <div className="mt-8">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                 Statistics
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
@@ -140,7 +140,7 @@ const ProfileComponents = () => {
             </div>
           </div>
           <div className="ml-7">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
               Recent Activity
             </h2>
             <RecentActivityComponents activities={activities} />
@@ -160,12 +160,12 @@ const ProfileComponents = () => {
 function ProfileField({ icon, label, value }: ProfileFieldProps) {
   return (
     <div className="flex items-center space-x-3">
-      <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
+      <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-50 dark:bg-gray-800 flex items-center justify-center">
         <div className="text-blue-500">{icon}</div>
       </div>
       <div>
         <p className="text-sm text-gray-500">{label}</p>
-        <p className="font-medium text-gray-900">{value}</p>
+        <p className="font-medium text-gray-900 dark:text-white">{value}</p>
       </div>
     </div>
   );
@@ -181,10 +181,12 @@ function StatCard({
   icon: React.ReactNode;
 }) {
   return (
-    <div className="bg-gray-50 rounded-lg p-5 space-y-4 hover:shadow-xl transition-all duration-500">
+    <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-5 space-y-4 hover:shadow-xl transition-all duration-500">
       <p>{icon}</p>
       <p className="text-sm text-gray-500 font-bold">{label}</p>
-      <p className="text-xl font-semibold text-gray-900 mt-1">{value}</p>
+      <p className="text-xl font-semibold text-gray-900 dark:text-white mt-1">
+        {value}
+      </p>
     </div>
   );
 }

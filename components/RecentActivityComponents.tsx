@@ -38,10 +38,12 @@ const RecentActivityComponents = ({ activities }: RecentActivityProps) => {
       {activities.map((activity) => (
         <div
           key={activity.id}
-          className="flex justify-between items-center py-3 bg-black/5 rounded-lg"
+          className="flex justify-between items-center py-3 bg-black/5 dark:bg-gray-800 rounded-lg"
         >
           <div className="m-2">
-            <div className="font-medium">{getActionText(activity.action)}</div>
+            <div className="font-medium dark:text-white">
+              {getActionText(activity.action)}
+            </div>
             <div className="text-blue-600">{activity.todoTitle}</div>
           </div>
           <div className="text-gray-500 mr-2">
