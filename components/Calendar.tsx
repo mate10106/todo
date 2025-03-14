@@ -69,7 +69,7 @@ export default function Calendar() {
       days.push(
         <div
           key={`empty-${i}`}
-          className="h-32 border-t border-r border-gray-200 dark:border-gray-700"
+          className="h-32 max-sm:h-24 border-t border-r border-gray-200 dark:border-gray-700"
         />
       );
     }
@@ -84,11 +84,11 @@ export default function Calendar() {
       days.push(
         <div
           key={day}
-          className={`h-32 border-t border-r border-gray-200 dark:border-gray-700 p-2 ${
+          className={`h-32 max-sm:h-24 border-t border-r border-gray-200 dark:border-gray-700 p-2 ${
             isToday ? "bg-blue-50 dark:bg-blue-900/20" : ""
           }`}
         >
-          <div className="flex justify-between items-start max-sm:flex-col max-sm:items-center">
+          <div className="flex justify-between items-start max-sm:flex-col max-sm:items-center max-sm:gap-4">
             <span
               className={`text-sm font-medium ${
                 isToday
@@ -108,7 +108,7 @@ export default function Calendar() {
             {dayTasks.slice(0, 3).map((task) => (
               <div
                 key={task.id}
-                className={`text-xs p-1 rounded shadow-sm ${getTodoStatusColor(
+                className={`text-xs p-1 rounded shadow-sm max-sm:hidden ${getTodoStatusColor(
                   task
                 )}`}
               >

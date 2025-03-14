@@ -1,4 +1,4 @@
-import { Home, LogOut, User } from "lucide-react";
+import { Calendar, Home, LogOut, User } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
@@ -36,6 +36,18 @@ const MobileNavbar = ({ onNavigate }: { onNavigate: () => void }) => {
           >
             <User size={22} />
             Profile
+          </Link>
+          <Link
+            href="/dashboard/calendar"
+            onClick={onNavigate}
+            className={`flex items-center cursor-pointer gap-4 p-2 font-bold text-base hover:bg-slate-500/10 transition-colors rounded-lg duration-500 ${
+              isActive("/dashboard/calendar")
+                ? "text-blue-600 bg-blue-50 dark:bg-gray-800"
+                : "text-neutral-600 dark:text-white"
+            }`}
+          >
+            <Calendar size={22} />
+            Calendar
           </Link>
           <li className="flex cursor-pointer">
             <button
