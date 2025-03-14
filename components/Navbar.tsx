@@ -73,9 +73,24 @@ const Navbar = () => {
               Logout
             </button>
           </div>
-          <div className="flex items-center sm:hidden">
-            <Button variant="outline" onClick={handleToggleModal}>
-              {isModalOpen ? <X size={22} /> : <List size={22} />}
+          <div className="flex items-center space-x-2 sm:hidden">
+            <ThemeToggle />
+            <Button
+              variant="outline"
+              onClick={handleToggleModal}
+              className="dark:bg-gray-800 dark:hover:bg-gray-700/80 transition-colors duration-200"
+            >
+              {isModalOpen ? (
+                <X
+                  size={22}
+                  className="dark:text-white dark:hover:text-gray-400"
+                />
+              ) : (
+                <List
+                  size={22}
+                  className="dark:text-white dark:hover:text-gray-400"
+                />
+              )}
             </Button>
           </div>
         </div>

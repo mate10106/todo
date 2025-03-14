@@ -1,4 +1,4 @@
-import { Home, User } from "lucide-react";
+import { Home, LogOut, User } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
@@ -16,10 +16,10 @@ const MobileNavbar = ({ onNavigate }: { onNavigate: () => void }) => {
           <Link
             href="/dashboard/status/today"
             onClick={onNavigate}
-            className={`flex cursor-pointer gap-4 p-2 font-bold text-base hover:bg-slate-500/10 transition-colors rounded-lg duration-500 ${
+            className={`flex items-center cursor-pointer gap-4 p-2 font-bold text-base hover:bg-slate-500/10 transition-colors rounded-lg duration-500 ${
               isActive("/dashboard/status/today")
-                ? "text-blue-600 bg-blue-50"
-                : "text-neutral-600"
+                ? "text-blue-600 bg-blue-50 dark:bg-gray-800"
+                : "text-neutral-600 dark:text-white"
             }`}
           >
             <Home size={22} />
@@ -28,10 +28,10 @@ const MobileNavbar = ({ onNavigate }: { onNavigate: () => void }) => {
           <Link
             href="/dashboard/profile"
             onClick={onNavigate}
-            className={`flex cursor-pointer gap-4 p-2 font-bold text-base hover:bg-slate-500/10 transition-colors rounded-lg duration-500 ${
+            className={`flex items-center cursor-pointer gap-4 p-2 font-bold text-base hover:bg-slate-500/10 transition-colors rounded-lg duration-500 ${
               isActive("/dashboard/profile")
-                ? "text-blue-600 bg-blue-50"
-                : "text-neutral-600"
+                ? "text-blue-600 bg-blue-50 dark:bg-gray-800"
+                : "text-neutral-600 dark:text-white"
             }`}
           >
             <User size={22} />
@@ -39,15 +39,10 @@ const MobileNavbar = ({ onNavigate }: { onNavigate: () => void }) => {
           </Link>
           <li className="flex cursor-pointer">
             <button
-              className="flex items-center w-full gap-4 p-2 text-neutral-600 font-bold text-base hover:bg-slate-500/10 transition-colors  rounded-lg duration-500"
+              className="flex items-center w-full gap-4 p-2 text-neutral-600 dark:text-white font-bold text-base hover:bg-slate-500/10 transition-colors  rounded-lg duration-500"
               onClick={() => signOut({ callbackUrl: "/" })}
             >
-              <Image
-                src="/exit-svgrepo-com.svg"
-                width={24}
-                height={24}
-                alt="logout"
-              />
+              <LogOut />
               Logout
             </button>
           </li>

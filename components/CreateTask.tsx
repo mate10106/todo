@@ -90,9 +90,9 @@ export const CreateTaskForm = ({
             <Button
               variant="ghost"
               onClick={closeModal}
-              className="rounded-lg p-1 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className="rounded-lg p-1 w-8 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
-              <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+              <X className="text-gray-500 dark:text-gray-400" />
             </Button>
           </div>
           <Form {...form}>

@@ -23,6 +23,7 @@ import { startTransition, useState, useTransition } from "react";
 import { FormError } from "./form-error";
 import { FormSuccess } from "./form-success";
 import { EditProfileFormContentProps } from "@/types";
+import { X } from "lucide-react";
 
 const EditProfileComponents = ({
   closeModal,
@@ -56,12 +57,16 @@ const EditProfileComponents = ({
     <div className="fixed inset-0 z-50">
       <div className="flex min-h-screen items-center justify-center p-4">
         <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm" />
-        <div className="relative w-full max-w-lg rounded-2xl bg-white p-2 shadow-xl">
-          <div className="flex flex-col space-y-12 m-6">
+        <div className="relative w-full max-w-lg rounded-2xl bg-white dark:bg-gray-800 p-2 shadow-xl">
+          <div className="flex flex-col space-y-12 m-6 dark:text-white">
             <div className="flex items-center justify-between">
-              <h1 className="font-bold">Edit profile</h1>
-              <Button variant="ghost" onClick={closeModal} className="">
-                X
+              <h1 className="font-bold dark:text-white">Edit profile</h1>
+              <Button
+                variant="ghost"
+                onClick={closeModal}
+                className="rounded-lg p-1 w-8 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              >
+                <X className="text-gray-500 dark:text-gray-400" />
               </Button>
             </div>
             <div className="mx-auto">
@@ -140,11 +145,15 @@ const EditProfileComponents = ({
                 <FormError message={error || urlError} />
                 <FormSuccess message={success} />
                 <div className="mt-12 float-end space-x-4">
-                  <Button onClick={closeModal} variant="ghost">
+                  <Button
+                    onClick={closeModal}
+                    variant="ghost"
+                    className="dark:hover:bg-gray-700"
+                  >
                     Cancel
                   </Button>
                   <Button
-                    className="bg-blue-600/85 font-bold hover:bg-blue-600"
+                    className="bg-blue-600/85 font-bold hover:bg-blue-600 dark:text-white"
                     variant="default"
                     type="submit"
                     disabled={isPending}
