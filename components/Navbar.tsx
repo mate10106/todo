@@ -40,7 +40,7 @@ const Navbar = () => {
               <NavLink
                 icon={<Calendar size={20} />}
                 text="Calender"
-                href="/dashboard/calender"
+                href="/dashboard/calendar"
               />
               <NavLink
                 icon={<User size={20} />}

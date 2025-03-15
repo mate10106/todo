@@ -38,7 +38,7 @@ export function ComboboxDemo({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
         asChild
-        className="focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+        className="focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
       >
         <Button
           variant="default"
@@ -52,14 +52,14 @@ export function ComboboxDemo({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
-        <Command className="w-[45vh] max-sm:w-[39vh] cursor-pointer dark:bg-gray-800">
+        <Command className="w-[45vh] max-sm:w-[39vh] cursor-pointer dark:bg-gray-700">
           <CommandList>
             <CommandGroup>
               {data.map((data) => (
                 <CommandItem
                   key={data.value}
                   value={data.value}
-                  className="cursor-pointer dark:hover:bg-gray-700"
+                  className="cursor-pointer"
                   onSelect={(currentValue) => {
                     if (!disabled) {
                       onChange(currentValue === value ? "" : currentValue);
