@@ -22,7 +22,8 @@ import { FormSuccess } from "./form-success";
 import { CreatedTodoSchema } from "@/schema";
 import { ComboboxDemo } from "./Combobox";
 import { Todo } from "@/types";
-import { X } from "lucide-react";
+import { Users, X } from "lucide-react";
+import CollaboratorModal from "./CollaboratorModal";
 
 export const CreateTaskForm = ({
   userId,
@@ -36,6 +37,8 @@ export const CreateTaskForm = ({
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+  const [collaborators, setCollaborators] = useState([]);
+  const [isCollaboratorModalOpen, setIsCollaboratorModalOpen] = useState(false);
 
   const form = useForm<z.infer<typeof CreatedTodoSchema>>({
     resolver: zodResolver(CreatedTodoSchema),
@@ -189,6 +192,28 @@ export const CreateTaskForm = ({
                 />
                 <FormField
                   control={form.control}
+                  name="deadline"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Collaborators
+                      </FormLabel>
+                      <FormControl>
+                        <Button
+                          variant="link"
+                          onClick={() => setIsCollaboratorModalOpen(true)}
+                          className=""
+                        >
+                          <Users />
+                          Add Collaborators
+                        </Button>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
                   name="comments"
                   render={({ field }) => (
                     <FormItem>
@@ -230,6 +255,40 @@ export const CreateTaskForm = ({
               </div>
             </form>
           </Form>
+          <CollaboratorModal
+            isOpen={isCollaboratorModalOpen}
+            onClose={() => setIsCollaboratorModalOpen(false)}
+            // OnSelect={setCollaborators}
+            // selectedCollaborators={collaborators}
+          />
+          {collaborators && collaborators.length > 0 && (
+            <div className="mt-4">
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Selected Collaborators:
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {collaborators.map((collaborator, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm"
+                  >
+                    <span>{collaborator.name || collaborator.email}</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newCollaborators = [...collaborators];
+                        newCollaborators.splice(index, 1);
+                        setCollaborators(newCollaborators);
+                      }}
+                      className="ml-1 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

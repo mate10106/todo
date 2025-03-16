@@ -65,6 +65,7 @@ export const CreatedTodoSchema = z.object({
     .max(150, { message: "Description must be 150 characters or fewer" }),
   category: z.string().optional(),
   priority: z.string(),
+  collaborators: z.string().array().optional(),
 });
 
 export const EditProfileSchema = z.object({

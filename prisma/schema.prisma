@@ -85,6 +85,7 @@ model createdTodo {
   comments  String
   category  String?
   priority  String
+  collaborators String[]
   completed Boolean     @default(false)
   status    TodoStatus  @default(IN_PROGRESS)
   user      User        @relation(fields: [userId], references: [id])

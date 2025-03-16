@@ -16,7 +16,7 @@ export const createTodo = async (
     return { error: "Invalid fields!" };
   }
 
-  const { title, deadline, comments, category, priority } =
+  const { title, deadline, comments, category, priority, collaborators } =
     validatedFields.data;
 
   try {
@@ -31,6 +31,7 @@ export const createTodo = async (
         comments,
         category,
         priority,
+        collaborators,
         status: initialStatus,
         user: {
           connect: { id: userId },
