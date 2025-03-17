@@ -47,6 +47,7 @@ export const CreateTaskForm = ({
       deadline: new Date(),
       comments: "",
       category: "",
+      collaborators: [],
     },
   });
 
@@ -201,6 +202,7 @@ export const CreateTaskForm = ({
                       <FormControl>
                         <Button
                           variant="link"
+                          onChange={field.onChange}
                           onClick={() => setIsCollaboratorModalOpen(true)}
                           className=""
                         >
@@ -212,6 +214,34 @@ export const CreateTaskForm = ({
                     </FormItem>
                   )}
                 />
+                {collaborators && collaborators.length > 0 && (
+                  <div className="mt-4">
+                    <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Selected Collaborators:
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {collaborators.map((collaborator, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm"
+                        >
+                          <span>{collaborator.name || collaborator.email}</span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const newCollaborators = [...collaborators];
+                              newCollaborators.splice(index, 1);
+                              setCollaborators(newCollaborators);
+                            }}
+                            className="ml-1 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100"
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <FormField
                   control={form.control}
                   name="comments"
@@ -255,39 +285,13 @@ export const CreateTaskForm = ({
               </div>
             </form>
           </Form>
-          <CollaboratorModal
-            isOpen={isCollaboratorModalOpen}
-            onClose={() => setIsCollaboratorModalOpen(false)}
-            // OnSelect={setCollaborators}
-            // selectedCollaborators={collaborators}
-          />
-          {collaborators && collaborators.length > 0 && (
-            <div className="mt-4">
-              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Selected Collaborators:
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {collaborators.map((collaborator, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm"
-                  >
-                    <span>{collaborator.name || collaborator.email}</span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const newCollaborators = [...collaborators];
-                        newCollaborators.splice(index, 1);
-                        setCollaborators(newCollaborators);
-                      }}
-                      className="ml-1 text-blue-600 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-100"
-                    >
-                      <X className="h-3 w-3" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {isCollaboratorModalOpen && (
+            <CollaboratorModal
+              isOpen={isCollaboratorModalOpen}
+              onClose={() => setIsCollaboratorModalOpen(false)}
+              OnSelect={setCollaborators}
+              selectedCollaborators={collaborators}
+            />
           )}
         </div>
       </div>

@@ -101,3 +101,16 @@ interface LoginFormContentProps {
   token: string;
   urlError?: string;
 }
+
+interface Collaborator {
+  id?: string;
+  name?: string;
+  email: string;
+}
+
+interface CollaboratorModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  OnSelect: (collaborators: Collaborator[]) => void;
+  selectedCollaborators: Collaborator[];
+}
