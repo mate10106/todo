@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { X, Search, User } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { getAllUsers } from "@/data/user";
 
 interface Collaborator {
   id?: string;
@@ -29,28 +30,55 @@ const CollaboratorModal = ({
     Collaborator[]
   >(selectedCollaborators || []);
 
-  // Mock data for demo purposes - replace with actual API call
-  const mockUsers: Collaborator[] = [
-    { id: "1", name: "John Doe", email: "john@example.com" },
-    { id: "2", name: "Jane Smith", email: "jane@example.com" },
-    { id: "3", name: "Alice Johnson", email: "alice@example.com" },
-    { id: "4", name: "Bob Brown", email: "bob@example.com" },
-    { id: "5", name: "Carol White", email: "carol@example.com" },
-  ];
+  const fetchUsers = async () => {
+    try {
+      setLoading(true);
+      const users = await getAllUsers();
+      if (!users || users.length === 0) {
+        throw new Error("Failed to fetch users");
+      }
+      return users;
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      return [];
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchUsers().then((users) => {
+        if (searchQuery.length === 0) {
+          const collaborators: Collaborator[] = users.map((user) => ({
+            id: user.id,
+            name: user.name || undefined,
+            email: user.email || "",
+          }));
+          setSearchResults(collaborators);
+        }
+      });
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (searchQuery.length > 0) {
       setLoading(true);
-      // Simulate API call delay
-      setTimeout(() => {
-        const results = mockUsers.filter(
+
+      fetchUsers().then((users) => {
+        const results = users.filter(
           (user) =>
             user.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            user.email.toLowerCase().includes(searchQuery.toLowerCase())
+            user.email?.toLowerCase().includes(searchQuery.toLowerCase())
         );
-        setSearchResults(results);
+        const collaborators: Collaborator[] = results.map((user) => ({
+          id: user.id,
+          name: user.name || undefined,
+          email: user.email || "",
+        }));
+        setSearchResults(collaborators);
         setLoading(false);
-      }, 300);
+      });
     } else {
       setSearchResults([]);
     }
